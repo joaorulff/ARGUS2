@@ -1,0 +1,33 @@
+mat-toolbar{
+    align-items: stretch;
+}
+
+mat-drawer-content, .mat-drawer-inner-container{
+    display: flex !important;
+}
+
+mat-tab-group, .mat-mdc-tab-body-content, .mat-mdc-tab-body-wrapper{
+    display: flex;
+    flex: 1 !important;
+}
+
+mat-form-field {
+    width: 90%;
+}
+
+mat-slider{
+    width: 98% !important;
+}
+
+.mat-mdc-text-field-wrapper{
+    background-color: transparent !important;
+}
+
+h1, h2, p{
+    margin: 0px 0px 0px 0px !important;
+    color: gray;
+}
+
+.mat-grid-tile-content{
+    align-items: stretch !important;
+}
