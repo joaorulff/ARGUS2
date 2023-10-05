@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IOfflineViewState } from 'src/app/store/reducers/offlineview.reducer';
+import { OfflineViewController } from './controller/offline-view.controller';
 
 @Component({
   selector: 'app-offline-view',
   templateUrl: './offline-view.component.html',
   styleUrls: ['./offline-view.component.scss']
 })
-export class OfflineViewComponent implements OnInit{
+export class OfflineViewComponent {
 
-  constructor(){}
+  // controller
+  public offlineViewController!: OfflineViewController;
 
-  ngOnInit(): void {
-
-    
-    
+  constructor( private store: Store<{offlineViewState: IOfflineViewState}> ){
+    this.offlineViewController = new OfflineViewController( this.store );
   }
 
 }

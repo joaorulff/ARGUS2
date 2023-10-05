@@ -9,6 +9,17 @@ import { MainViewModule } from './views/main-view/main-view.module';
 
 // components
 import { AppComponent } from './app.component';
+import { Action, ActionReducer, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+
+import { offlineViewReducer } from './store/reducers/offlineview.reducer';
+import { OfflineViewEffects } from './store/effects/offline-view.effects';
+
+// actions
+const actions: { [ name: string ]: ActionReducer<any, Action> } = {
+  'offlineView': offlineViewReducer,
+};
 
 @NgModule({
   declarations: [
@@ -18,7 +29,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MainViewModule
+    MainViewModule,
+    StoreModule.forRoot(actions),
+    EffectsModule.forRoot([ OfflineViewEffects ])
   ],
   providers: [],
   bootstrap: [AppComponent]
