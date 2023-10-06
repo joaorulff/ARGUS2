@@ -1,1 +1,22 @@
-<p>session-picker-dialog works!</p>
+<div class="component-container-vertical">
+
+
+    <div class="component-container-horizontal-height-param" style="--height: 100px;">
+        <app-keyword-search-bar (textchanged)="this.sessionPickerDialogController.filter_sessions_by_keyword($event)"></app-keyword-search-bar>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="component-container-horizontal-height-param" style="--height: 300px;"></div>
+
+    <mat-divider></mat-divider>
+    
+    <div class="component-container-vertical">
+        <app-results-list
+            (sessionselected)="this.sessionPickerDialogController.on_session_selected($event.session_name)" 
+            [sessions]="this.sessionPickerDialogController.filteredSessions">
+        </app-results-list>
+    </div>
+
+
+</div>

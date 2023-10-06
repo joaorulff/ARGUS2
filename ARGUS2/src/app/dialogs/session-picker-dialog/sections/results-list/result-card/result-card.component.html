@@ -1,0 +1,45 @@
+<div class="component-container-horizontal center-element">
+
+    <div class="component-container-vertical-width-height-param card" style="--width: 92%; --height: 92%;">
+
+        <div class="component-container-horizontal-height-param" style="--height: 60px; justify-content: space-between;">
+            
+            <div class="component-container-horizontal" style="margin: 0px 20px 0px 20px;">
+
+                <div class="component-container-horizontal-width-param" style="--width: 100px; align-items: center;">
+                    <h1><b>Name:</b></h1>
+                </div>
+                <div class="component-container-horizontal text-overflow" style="align-items: center;">
+                    <h1>{{ this.session.name }}</h1>
+                </div>
+
+                
+            </div>
+
+            <div class="component-container-horizontal" style="margin: 0px 20px 0px 20px;">
+                
+                <div class="component-container-horizontal-width-param" style="--width: 80px; align-items: center;">
+                    <h1><b>Date:</b></h1>
+                </div>
+                <div class="component-container-horizontal text-overflow" style="align-items: center;">
+                    <h1>{{ this.session['first-entry-time'] }}</h1>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="component-container-horizontal"></div>
+
+        <div class="component-container-horizontal-height-param" style="--height: 60px; justify-content: flex-end;">
+        
+            <div class="component-container-horizontal-width-param center-element" style="--width: 200px;">
+                <button mat-raised-button color="primary" style="width: 150px;" (click)="this.onSessionLoadClick.emit({'session_name':this.session.name})">Load</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

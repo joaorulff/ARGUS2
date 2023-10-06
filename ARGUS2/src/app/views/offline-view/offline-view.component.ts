@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IOfflineViewState } from 'src/app/store/reducers/offlineview.reducer';
+import { IOfflineViewState } from 'src/app/store/reducers/offline-view.reducer';
 import { OfflineViewController } from './controller/offline-view.controller';
 
 @Component({

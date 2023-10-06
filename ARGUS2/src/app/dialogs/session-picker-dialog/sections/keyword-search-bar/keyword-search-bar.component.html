@@ -1,0 +1,20 @@
+<div class="component-container-horizontal">
+
+    <div class="component-container-horizontal">
+
+        <form style="display: flex; align-items: center; justify-content: center;">
+            <mat-form-field>
+                <mat-label>Session Name</mat-label>
+                <input 
+                    matInput
+                    placeholder="Session Name" 
+                    value="" 
+                    name="sessionkeyword" 
+                    [(ngModel)]=this.keyworkdSearchBarController.currentKeyWord 
+                    (input)="this.textChanged.emit( this.keyworkdSearchBarController.currentKeyWord )">
+            </mat-form-field>
+        </form>
+    
+    </div>
+
+</div>

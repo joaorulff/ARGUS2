@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
 
 
 const MATERIAL_MODULES = [
@@ -22,7 +24,8 @@ const MATERIAL_MODULES = [
     MatSidenavModule,   MatSliderModule,
     MatDialogModule,    MatMenuModule,
     MatSelectModule,    MatDividerModule,
-    MatGridListModule,  MatProgressSpinnerModule
+    MatGridListModule,  MatProgressSpinnerModule,   
+    MatFormFieldModule, MatInputModule
 ]
 
 @NgModule({

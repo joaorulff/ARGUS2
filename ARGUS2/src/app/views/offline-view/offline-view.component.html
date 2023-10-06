@@ -6,7 +6,7 @@
         
             <div style="width: 100%; height: 100%; top: 0px; left: 0px; position: absolute;">
                 <div style="width: 100%; height: 100%; display: flex;">
-                    <app-spatial-viewer></app-spatial-viewer>
+                    <app-spatial-viewer [streams]="this.offlineViewController.loadedStreams$ | async"></app-spatial-viewer>
                 </div>
             </div>
 

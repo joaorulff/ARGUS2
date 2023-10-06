@@ -13,12 +13,14 @@ import { Action, ActionReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 
-import { offlineViewReducer } from './store/reducers/offlineview.reducer';
+import { offlineViewReducer } from './store/reducers/offline-view.reducer';
 import { OfflineViewEffects } from './store/effects/offline-view.effects';
+import { DialogsModule } from './dialogs/dialogs.module';
+import { CommonModule } from '@angular/common';
 
 // actions
 const actions: { [ name: string ]: ActionReducer<any, Action> } = {
-  'offlineView': offlineViewReducer,
+  'offlineViewState': offlineViewReducer,
 };
 
 @NgModule({
@@ -26,6 +28,8 @@ const actions: { [ name: string ]: ActionReducer<any, Action> } = {
     AppComponent
   ],
   imports: [
+    CommonModule,
+    DialogsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

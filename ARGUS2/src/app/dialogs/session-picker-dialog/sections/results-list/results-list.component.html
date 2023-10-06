@@ -1,0 +1,16 @@
+<div class="component-container-vertical">
+    <app-scrollable-container-vertical>
+
+        <div style="display: flex; flex-direction: column;">
+
+            <div *ngFor="let session of this.sessions" class="component-container-horizontal-height-param" style="--height: 300px" >
+                <app-result-card
+                    (onsessionloadclick)="this.sessionSelected.emit($event)"
+                    [session]="session">
+                </app-result-card>
+            </div>
+
+        </div>
+
+    </app-scrollable-container-vertical>
+</div>

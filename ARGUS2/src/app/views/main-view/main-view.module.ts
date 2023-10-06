@@ -6,13 +6,15 @@ import { MainViewComponent } from "./main-view.component";
 
 // custom modules
 import { OfflineViewModule } from "../offline-view/offline-view.module";
+import { MaterialModule } from "src/app/material/material.module";
 
 @NgModule({
     declarations: [
         MainViewComponent
     ],
     imports: [
-        OfflineViewModule  
+        OfflineViewModule,
+        MaterialModule
     ],
     exports: [
         MainViewComponent

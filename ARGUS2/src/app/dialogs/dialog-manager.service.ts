@@ -23,7 +23,7 @@ export class DialogManager {
         this.dialog.open(  SessionPickerDialogComponent, {
             panelClass: 'custom-dialog-container',
             width: '1000px',
-            height: '800px',
+            height: '1000px',
             data: params
         });
 

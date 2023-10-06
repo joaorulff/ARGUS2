@@ -1,7 +1,6 @@
 // core
 import { NgModule } from "@angular/core";
 import { MaterialModule } from "src/app/material/material.module";
-// import { DialogsModule } from "src/app/dialogs/dialogs.module";
 import { HttpClientModule } from "@angular/common/http";
 
 // components
@@ -10,6 +9,7 @@ import { SpatialViewerComponent } from './sections/spatial-viewer/spatial-viewer
 import { TemporalViewerComponent } from './sections/temporal-viewer/temporal-viewer.component';
 import { MediaViewerComponent } from './sections/media-viewer/media-viewer.component';
 import { QueryBarComponent } from './sections/query-bar/query-bar.component';
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -22,6 +22,7 @@ import { QueryBarComponent } from './sections/query-bar/query-bar.component';
     imports: [
         MaterialModule,
         HttpClientModule,
+        CommonModule
     ],
     exports: [
         OfflineViewComponent
