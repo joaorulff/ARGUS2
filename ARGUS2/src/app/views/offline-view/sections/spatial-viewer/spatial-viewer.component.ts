@@ -19,16 +19,8 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
   // inputs
   @Input('streams') streams: any = {};
 
-  constructor( public httpClient: HttpClient ){
-    
+  constructor( public httpClient: HttpClient ){    
     this.spatialViewerController = new SpatialViewerController();
-
-    // this.httpClient.get('../../../../../assets/voxelized-pointcloud.json').subscribe( (data: any) => {
-    //   this.pointcloudData = data;
-    //   
-    //   this.spatialViewerController.initialize_component( this.containerRef.nativeElement, data['xyz_world'], data['colors'] );
-    // });
-    
   }
 
   ngAfterViewInit(): void {
@@ -38,7 +30,11 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     if( 'streams' in changes ){
-      this.spatialViewerController.update_dataset( changes['streams'].currentValue );
+
+      if(  Object.keys(changes['streams'].currentValue).length && !changes['streams'].firstChange ){
+        this.spatialViewerController.update_dataset( changes['streams'].currentValue );
+      }
+
     }
     
   }

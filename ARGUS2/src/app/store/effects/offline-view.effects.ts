@@ -6,11 +6,11 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { concatMap, from, map, mergeMap, Observable, of, switchMap, zip } from "rxjs";
 import { AuthAPI } from "src/app/api/auth.api";
 import { OfflineAPI } from "src/app/api/offline.api";
-import { STREAMNAMES } from "src/app/constants/offlineview/offlineview.contants";
+import { STREAMNAMES, VIDEONAMES } from "src/app/constants/offlineview/offlineview.contants";
 import { DialogManager } from "src/app/dialogs/dialog-manager.service";
 
 // actions
-import { queryButtonClicked, sessionSelected, sessionStreamsLoaded } from "../actions/offline-view.actions";
+import { queryButtonClicked, sessionSelected, sessionStreamsLoaded, sessionVideosLoaded } from "../actions/offline-view.actions";
 
 @Injectable()
 export class OfflineViewEffects {
@@ -41,6 +41,25 @@ export class OfflineViewEffects {
 
     ), {dispatch: false} );
 
+    
+
+    public loadSessionVideos = createEffect( () => this.actions$.pipe(
+        ofType( sessionSelected ),
+        
+        // getting token
+        map( ( action: {session_name: string, type: string} ) => {
+
+            const loadedVideos: { [videoName: string]: any } = {};
+            VIDEONAMES.forEach( (videoName: string) => {
+                loadedVideos[videoName] = this.offlineAPI.get_static_video_path( action.session_name, videoName );
+            });
+
+            return sessionVideosLoaded( { videos: loadedVideos });
+
+        })
+
+    ), {dispatch: true} );
+
 
     public loadSessionFiles = createEffect( () => this.actions$.pipe(
         ofType( sessionSelected ),
@@ -65,7 +84,8 @@ export class OfflineViewEffects {
                 loadedStreams[streamName] = response[index];
             })
             
-            return sessionStreamsLoaded( {streams: loadedStreams });
+            return sessionStreamsLoaded( { streams: loadedStreams });
+            
         })
 
     ), {dispatch: true} );

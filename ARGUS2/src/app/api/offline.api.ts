@@ -35,6 +35,14 @@ export class OfflineAPI {
 
     }
 
+    public get_static_video_path( sessionName: string, videoName: string ): string{
+
+        const url: string = `${environment.staticPath}/${sessionName}/${videoName}.mp4`
+
+        return url;
+
+    }
+
 
 
 

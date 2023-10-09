@@ -13,3 +13,8 @@ export const sessionStreamsLoaded = createAction(
     '[Offline View] session-streams-loaded',
     props<{streams: { [name: string]: any} }>()
 )
+
+export const sessionVideosLoaded = createAction(
+    '[Offline View] session-videos-loaded',
+    props<{videos: { [name: string]: string} }>()
+)

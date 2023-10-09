@@ -16,7 +16,6 @@
                 </div>
             </div>
 
-
         </div>
 
     </div>
@@ -25,7 +24,9 @@
 
     <div class="component-container-vertical">
         
-        <div class="component-container-horizontal-height-param" style="--height: 30%"></div>
+        <div class="component-container-horizontal-height-param" style="--height: 30%;">
+            <app-media-viewer [videos]="(this.offlineViewController.loadedVideos$ | async)!"></app-media-viewer>
+        </div>
 
         <mat-divider></mat-divider>
 
