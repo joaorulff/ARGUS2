@@ -11,7 +11,7 @@ export class MediaViewerController {
 
     constructor(){}
 
-    public initialize_component( videoContainer: HTMLDivElement ): void{
+    public initialize_component( videoContainer: HTMLDivElement ): void {
         this.videoContainer = videoContainer;
         this.maxWidth = videoContainer.parentElement!.offsetWidth;
         this.maxHeight = videoContainer.parentElement!.offsetHeight;
@@ -22,8 +22,7 @@ export class MediaViewerController {
         this.select_video( videos['main'] );
     }
 
-    public select_video( videoPath: string ){
-        
+    public select_video( videoPath: string ): void {
         this.selectedVideo = videoPath;
         this.create_video_tag( videoPath )
     }
@@ -34,7 +33,7 @@ export class MediaViewerController {
         }
     }
 
-    public create_video_tag( videoPath: string ): void{
+    public create_video_tag( videoPath: string ): void {
 
         // clearing
         this.clear_video_container();
@@ -57,17 +56,13 @@ export class MediaViewerController {
             let containerWidth: number = 0;
             let containerHeight: number = 0;
             if( width > height ){
-
                 const ratio: number = width/this.maxWidth;
                 containerWidth = this.maxWidth;
                 containerHeight = height*ratio;
-
             } else {
-
                 const ratio: number = height/this.maxHeight;
                 containerWidth = width*ratio;
                 containerHeight = this.maxHeight;
-
             }
 
             this.videoContainer.style.width = `${containerWidth}px`;

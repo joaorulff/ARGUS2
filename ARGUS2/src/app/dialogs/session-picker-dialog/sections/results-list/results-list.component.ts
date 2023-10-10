@@ -10,6 +10,6 @@ export class ResultsListComponent {
   @Input('sessions') sessions: any[] = [];
 
   // events
-  @Output('sessionselected') sessionSelected: EventEmitter<{session_name: string}> = new EventEmitter<{session_name: string}>();
+  @Output('sessionselected') sessionSelected: EventEmitter<{session: any}> = new EventEmitter<{session: any}>();
 
 }

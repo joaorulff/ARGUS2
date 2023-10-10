@@ -108,6 +108,9 @@
     }
   },
   "cli": {
-    "analytics": "b736fa8b-57b2-4992-8ba4-498dcbef718f"
+    "analytics": "b736fa8b-57b2-4992-8ba4-498dcbef718f",
+    "cache": {
+      "enabled": false
+    }
   }
 }

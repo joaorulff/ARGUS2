@@ -13,7 +13,7 @@
     
     <div class="component-container-vertical">
         <app-results-list
-            (sessionselected)="this.sessionPickerDialogController.on_session_selected($event.session_name)" 
+            (sessionselected)="this.sessionPickerDialogController.on_session_selected($event)" 
             [sessions]="this.sessionPickerDialogController.filteredSessions">
         </app-results-list>
     </div>

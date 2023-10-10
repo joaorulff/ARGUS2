@@ -20,7 +20,7 @@ export class SessionPickerDialogController {
         this.filteredSessions = this.sessions.filter( ( session: any ) =>  (<string>session.name).includes(keyword) )
     }
 
-    public on_session_selected( sessionName: string ): void {
-        this.store.dispatch( sessionSelected({session_name: sessionName}) );
+    public on_session_selected( session: any ): void {
+        this.store.dispatch( sessionSelected({ session }) );
     }
 }

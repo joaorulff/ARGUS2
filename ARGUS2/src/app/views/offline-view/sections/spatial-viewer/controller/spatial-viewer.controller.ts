@@ -1,7 +1,7 @@
 // import { SceneViewer } from "egocloud";
 import { Dataset } from "egocloud";
-
 import { SceneViewer } from "egocloud";
+
 import { STREAMNAMES } from "src/app/constants/offlineview/offlineview.contants";
 import { PointCloudParsers } from "src/app/utils/parsers/pointcloud.parsers";
 
@@ -19,17 +19,16 @@ export class SpatialViewerController {
         // Creating dataset
         const dataset: Dataset = new Dataset();
 
+        // TODO: change egocloud to create the grid on the first stream. Or add a flag that tells when to create the stream.
         STREAMNAMES.forEach( (name: string) => {
             if( name in streams ){
 
                 if( name === 'voxelized-pointcloud' ){
                     this.streams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
-
-                    console.log( this.streams );
-                    dataset.add_point_cloud( 'world', this.streams[name].positions, this.streams[name].colors, [], [], false  );
+                    dataset.add_point_cloud( name, this.streams[name].positions, this.streams[name].colors, [], [], false, false, true  );
                 } else { 
                     this.streams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
-                    dataset.add_point_cloud( name, this.streams[name].positions, this.streams[name].colors, [], [], false  );
+                    dataset.add_point_cloud( name, this.streams[name].positions, this.streams[name].colors, [], this.streams[name].meta, false, true );
                 }
 
             }
@@ -39,40 +38,16 @@ export class SpatialViewerController {
 
     }
 
-    // public create_dataset(): void {
-
-    //     STREAMNAMES.forEach( (name: string) => {
-    //         if( name in this.streams ){
-    //             this.streams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
-    //         }
-    //     });
-
-    //     // Creating dataset
-    //     const dataset: Dataset = new Dataset( { positions: positions, colors: colors, normals: [] } );
-
-    //     // Testing...
-    //     // const mainDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('main-div');
-    //     const egoCloud = new SceneViewer( containerRef );
-    //     egoCloud.render( dataset );
-
-    // }
-
-    // public initialize_component( containerRef: HTMLDivElement, positions: any, colors: any ): void {
-
-    //     // Creating dataset
-    //     const dataset: Dataset = new Dataset( { positions: positions, colors: colors, normals: [] } );
-
-    //     // Testing...
-    //     // const mainDiv: HTMLDivElement = <HTMLDivElement>document.getElementById('main-div');
-    //     const egoCloud = new SceneViewer( containerRef );
-    //     egoCloud.render( dataset );
-
-    // }
-
     public initialize_component( containerRef: HTMLDivElement ): void {
+
         this.egoCloud = new SceneViewer( containerRef, {
-            'onHover': ( meta: any ) => {
-                console.log('TEST');
+            'onHover': ( index: number, name: string, position: number[], meta: any ) => {
+
+                console.log('index: ', index);
+                console.log('name: ', name);
+                console.log('position: ', position);
+                console.log('meta: ', meta );
+
             }  
         } );
     }

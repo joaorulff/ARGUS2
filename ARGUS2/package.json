@@ -22,7 +22,7 @@
     "@angular/router": "^15.0.0",
     "@ngrx/effects": "^15.4.0",
     "@ngrx/store": "^15.4.0",
-    "egocloud": "file:./egocloud-1.0.0.tgz",
+    "egocloud": "file:../../egocloud/egocloud/package/egocloud-1.0.0.tgz",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

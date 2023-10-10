@@ -34,7 +34,7 @@
         <div class="component-container-horizontal-height-param" style="--height: 60px; justify-content: flex-end;">
         
             <div class="component-container-horizontal-width-param center-element" style="--width: 200px;">
-                <button mat-raised-button color="primary" style="width: 150px;" (click)="this.onSessionLoadClick.emit({'session_name':this.session.name})">Load</button>
+                <button mat-raised-button color="primary" style="width: 150px;" (click)="this.onSessionLoadClick.emit(this.session)">Load</button>
             </div>
 
         </div>

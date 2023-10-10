@@ -10,6 +10,6 @@ export class ResultCardComponent {
   @Input('session') session: any = {};
 
   // events
-  @Output('onsessionloadclick') onSessionLoadClick: EventEmitter<{session_name: string}> = new EventEmitter<{session_name: string}>();
+  @Output('onsessionloadclick') onSessionLoadClick: EventEmitter<{session: any}> = new EventEmitter<{session: any}>();
 
 }

@@ -5,14 +5,31 @@ export class PointCloudParsers {
         switch(streamName) {
             case 'voxelized-pointcloud':
                 return PointCloudParsers.parse_world_point_cloud( stream );
-                break;
             case 'eye':
                 return PointCloudParsers.parse_eye_point_cloud( stream );
-                break
+            case 'hand':
+                return PointCloudParsers.parse_hand_point_cloud( stream );
           }
     }
 
     private static parse_eye_point_cloud( stream: any ): any {
+
+        let positions: number[][] = [];
+        let timestamps: any[] = [];
+        stream.forEach( ( measure: any ) => {
+
+            const currentPosition: number[] = [ measure.GazeOrigin.x, measure.GazeOrigin.y, (-1)*measure.GazeOrigin.z ];
+            const currentTimestamp: any = { 'timestamp': parseInt(measure.timestamp.split('-')[0]) }
+
+            positions.push( currentPosition );
+            timestamps.push( currentTimestamp );
+        
+        });
+
+        return { positions, colors: [], normals: [], meta: timestamps };
+    }
+
+    private static parse_hand_point_cloud( stream: any ): any {
 
         return { positions: [], colors: [], normals: [], meta: [] };
     }

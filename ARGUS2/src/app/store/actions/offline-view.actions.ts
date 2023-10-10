@@ -4,9 +4,11 @@ export const queryButtonClicked = createAction(
     '[Offline View] query-button-clicked'
 )
 
+
+// TODO: add interface
 export const sessionSelected = createAction(
     '[Offline View] session-selected',
-    props<{session_name: string}>()
+    props<{session: any}>()
 )
 
 export const sessionStreamsLoaded = createAction(
