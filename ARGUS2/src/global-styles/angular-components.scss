@@ -13,10 +13,15 @@ mat-tab-group, .mat-mdc-tab-body-content, .mat-mdc-tab-body-wrapper{
 
 mat-form-field {
     width: 95%;
+    height: 95%;
 }
 
 mat-slider{
     width: 98% !important;
+}
+
+button{
+    width: 100%;
 }
 
 .mat-mdc-text-field-wrapper{

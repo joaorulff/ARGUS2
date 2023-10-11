@@ -14,11 +14,13 @@ export class QueryBarComponent {
 
   // events
   @Output('querybuttonclicked') queryButtonClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output('annotationbuttonclicked') annotationButtonClicked: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(){
 
     const events: { [eventName: string]: EventEmitter<any> } = {
-      'queryButtonClicked': this.queryButtonClicked
+      'querybuttonclicked': this.queryButtonClicked,
+      'annotationbuttonclicked': this.annotationButtonClicked
     }
 
     this.queryBarController = new QueryBarController( events );

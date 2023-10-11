@@ -6,7 +6,7 @@ import { OfflineViewController } from './controller/offline-view.controller';
 @Component({
   selector: 'app-offline-view',
   templateUrl: './offline-view.component.html',
-  styleUrls: ['./offline-view.component.scss']
+  styleUrls: ['./styles/offline-view.component.scss']
 })
 export class OfflineViewComponent {
 

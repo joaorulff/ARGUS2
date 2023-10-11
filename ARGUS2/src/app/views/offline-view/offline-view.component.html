@@ -1,6 +1,6 @@
 <div class="component-container-horizontal">
     
-    <div class="component-container-horizontal-width-param" style="--width: 80%">
+    <div class="component-container-horizontal-width-param" style="--width: 70%">
 
         <div style="width: 100%; height: 100%; position: relative;">
         
@@ -10,9 +10,12 @@
                 </div>
             </div>
 
-            <div style="width: 100px; height: 100px; top: 0px; left: 0px; position: absolute;">
+            <div style="width: 100px; height: 400px; top: 0px; left: 0px; position: absolute;" >
                 <div style="width: 100%; height: 100%; display: flex;">
-                    <app-query-bar (querybuttonclicked)="this.offlineViewController.on_query_button_click()"></app-query-bar>
+                    <app-query-bar 
+                        (annotationbuttonclicked)="this.offlineViewController.on_annotation_button_click()"
+                        (querybuttonclicked)="this.offlineViewController.on_query_button_click()">
+                    </app-query-bar>
                 </div>
             </div>
 

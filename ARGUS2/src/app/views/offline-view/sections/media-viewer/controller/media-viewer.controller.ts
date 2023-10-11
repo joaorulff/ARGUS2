@@ -13,8 +13,10 @@ export class MediaViewerController {
 
     public initialize_component( videoContainer: HTMLDivElement ): void {
         this.videoContainer = videoContainer;
+
         this.maxWidth = videoContainer.parentElement!.offsetWidth;
         this.maxHeight = videoContainer.parentElement!.offsetHeight;
+
     }
 
     public update_videos( videos: { [name: string]: string } ): void {
@@ -43,7 +45,7 @@ export class MediaViewerController {
         video.style.height = '100%';
 
         // controls
-        video.controls = true;
+        // video.controls = true;
 
         // saving ref
         this.currentVideo = video;
@@ -55,14 +57,19 @@ export class MediaViewerController {
             
             let containerWidth: number = 0;
             let containerHeight: number = 0;
-            if( width > height ){
-                const ratio: number = width/this.maxWidth;
-                containerWidth = this.maxWidth;
-                containerHeight = height*ratio;
-            } else {
-                const ratio: number = height/this.maxHeight;
-                containerWidth = width*ratio;
+            let ratio: number = 0;
+
+            containerWidth = this.maxWidth;
+            ratio = width/this.maxWidth;
+            containerHeight = this.maxHeight/ratio;
+
+            // if it didn't fit. Try to fit the inverse.
+            if( containerHeight > this.maxHeight ){ 
+
                 containerHeight = this.maxHeight;
+                ratio = height/this.maxHeight;
+                containerWidth = this.maxWidth/ratio;
+
             }
 
             this.videoContainer.style.width = `${containerWidth}px`;

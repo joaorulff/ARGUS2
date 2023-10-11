@@ -1,7 +1,28 @@
-<div class="component-container-horizontal">
-    <div class="component-container-horizontal center-element">
-        <button mat-fab color="primary" (click)="this.queryBarController.on_query_button_click()">
-            <mat-icon>search</mat-icon>
-        </button>
+<div class="component-container-vertical">
+
+    <div class="component-container-vertical-height-param" style="--height: 100px;">
+        <div class="component-container-horizontal center-element">
+            <button mat-fab color="primary" (click)="this.queryBarController.on_query_button_click()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
     </div>
+
+    <div class="component-container-vertical-height-param" style="--height: 100px;;">
+        <div class="component-container-horizontal center-element">
+            <button mat-fab color="primary" (click)="this.queryBarController.on_annotation_button_click()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="component-container-vertical-height-param" style="--height: 100px;">
+        <div class="component-container-horizontal center-element">
+            <button mat-fab color="primary" disabled>
+                <mat-icon>settings</mat-icon>
+            </button>
+        </div>
+    </div>
+
 </div>

@@ -8,6 +8,7 @@ import { ResultCardComponent } from './session-picker-dialog/sections/results-li
 import { TemplatesModule } from "../templates/templates.module";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SessionAnnotationDialogComponent } from './session-annotation-dialog/session-annotation-dialog.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         KeywordSearchBarComponent,
         HistogramFiltersComponent,
         ResultsListComponent,
-        ResultCardComponent
+        ResultCardComponent,
+        SessionAnnotationDialogComponent
     ],
     imports: [
         MaterialModule,

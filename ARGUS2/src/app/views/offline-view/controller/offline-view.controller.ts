@@ -1,6 +1,6 @@
 import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
-import { queryButtonClicked } from "src/app/store/actions/offline-view.actions";
+import { annotationButtonClicked, queryButtonClicked } from "src/app/store/actions/offline-view.actions";
 import { IOfflineViewState } from "src/app/store/reducers/offline-view.reducer";
 import { selectLoadedStreams, selectLoadedVideos } from "src/app/store/selectors/offline-view.selectors";
 
@@ -15,6 +15,10 @@ export class OfflineViewController {
 
     public on_query_button_click(): void {
         this.store.dispatch( queryButtonClicked() );
+    }
+
+    public on_annotation_button_click(): void {
+        this.store.dispatch( annotationButtonClicked() );
     }
 
     private subscribe_to_selectors(): void {

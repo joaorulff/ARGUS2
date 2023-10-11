@@ -18,7 +18,7 @@ import { DialogManager } from "src/app/dialogs/dialog-manager.service";
 import { TimestampManagerService } from "src/app/services/timestamp-manager.service";
 
 // actions
-import { queryButtonClicked, sessionSelected, sessionStreamsLoaded, sessionVideosLoaded } from "../actions/offline-view.actions";
+import { annotationButtonClicked, queryButtonClicked, sessionSelected, sessionStreamsLoaded, sessionVideosLoaded } from "../actions/offline-view.actions";
 
 // interfaces
 import { IOfflineViewState } from "../reducers/offline-view.reducer";
@@ -54,6 +54,14 @@ export class OfflineViewEffects {
         })
 
     ), {dispatch: false} );
+
+    public openSessionAnnotationDialog = createEffect( () => this.actions$.pipe(
+        ofType( annotationButtonClicked ),
+        map( () => {
+            console.log('TEST');
+            this.dialogManagerService.openDialog( 'session-annotation-dialog' );
+        })
+    ), {dispatch: false})
 
 
     public loadSessionVideos = createEffect( () => this.actions$.pipe(

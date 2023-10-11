@@ -15,7 +15,9 @@ export class MediaViewerComponent implements AfterViewInit, OnChanges {
 
   // dom refs
   @ViewChild('videocontainerref') videoContainerRef!: ElementRef;
-  // @ViewChild('videowrapperref') videoWrapperRef!: ElementRef;
+
+  // events
+  
 
   constructor(){
     this.mediaViewerController = new MediaViewerController();
