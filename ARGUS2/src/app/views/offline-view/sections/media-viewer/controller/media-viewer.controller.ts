@@ -52,6 +52,7 @@ export class MediaViewerController {
 
         video.onloadedmetadata = (response: any) => {
 
+
             const width: number = video.videoWidth;
             const height: number = video.videoHeight;
             
@@ -59,16 +60,19 @@ export class MediaViewerController {
             let containerHeight: number = 0;
             let ratio: number = 0;
 
+            // TODO: Make sure this scaling is working correctly
+
             containerWidth = this.maxWidth;
             ratio = width/this.maxWidth;
-            containerHeight = this.maxHeight/ratio;
+            containerHeight = (ratio < 0) ? this.maxHeight*ratio: this.maxHeight/ratio;
 
             // if it didn't fit. Try to fit the inverse.
             if( containerHeight > this.maxHeight ){ 
 
                 containerHeight = this.maxHeight;
                 ratio = height/this.maxHeight;
-                containerWidth = this.maxWidth/ratio;
+                // containerWidth = this.maxWidth*ratio;
+                containerWidth = (ratio < 0) ? this.maxWidth/ratio : this.maxWidth*ratio;
 
             }
 

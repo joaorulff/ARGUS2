@@ -117,11 +117,11 @@ export class OfflineViewEffects {
         withLatestFrom( this.store.select( 'offlineViewState' ) ),
         map( ( response: [ {streams: any, type: string } , IOfflineViewState] ) => {
 
-            const initialTimestamp: number = parseInt(response[1].loadedSession['first-entry'].split('-')[0]);
+            const firstEntryTimestamp: number = parseInt(response[1].loadedSession['first-entry'].split('-')[0]);
 
             STREAMNAMES.forEach( (streamName: string, index: number) => {
                 
-                TimestampParsers.parse_stream_timestamp( streamName, response[0].streams[streamName] );
+                TimestampParsers.parse_stream_timestamp( streamName, response[0].streams[streamName], firstEntryTimestamp );
                 console.log(streamName);
             });
 

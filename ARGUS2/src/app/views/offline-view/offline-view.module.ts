@@ -10,6 +10,7 @@ import { TemporalViewerComponent } from './sections/temporal-viewer/temporal-vie
 import { MediaViewerComponent } from './sections/media-viewer/media-viewer.component';
 import { QueryBarComponent } from './sections/query-bar/query-bar.component';
 import { CommonModule } from "@angular/common";
+import { ModelViewerComponent } from './sections/temporal-viewer/sections/model-viewer/model-viewer.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { CommonModule } from "@angular/common";
         SpatialViewerComponent,
         TemporalViewerComponent,
         MediaViewerComponent,
-        QueryBarComponent
+        QueryBarComponent,
+        ModelViewerComponent
     ],
     imports: [
         MaterialModule,

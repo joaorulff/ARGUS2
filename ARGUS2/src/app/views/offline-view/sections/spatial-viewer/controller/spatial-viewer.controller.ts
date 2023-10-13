@@ -42,12 +42,7 @@ export class SpatialViewerController {
 
         this.egoCloud = new SceneViewer( containerRef, {
             'onHover': ( index: number, name: string, position: number[], meta: any ) => {
-
-                console.log('index: ', index);
-                console.log('name: ', name);
-                console.log('position: ', position);
-                console.log('meta: ', meta );
-
+                
             }  
         } );
     }
