@@ -7,6 +7,7 @@ import { MainViewComponent } from "./main-view.component";
 // custom modules
 import { OfflineViewModule } from "../offline-view/offline-view.module";
 import { MaterialModule } from "src/app/material/material.module";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -14,7 +15,8 @@ import { MaterialModule } from "src/app/material/material.module";
     ],
     imports: [
         OfflineViewModule,
-        MaterialModule
+        MaterialModule,
+        CommonModule
     ],
     exports: [
         MainViewComponent

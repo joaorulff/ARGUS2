@@ -19,7 +19,7 @@ export class PointCloudParsers {
         stream.forEach( ( measure: any ) => {
 
             const currentPosition: number[] = [ measure.GazeOrigin.x, measure.GazeOrigin.y, (-1)*measure.GazeOrigin.z ];
-            const currentTimestamp: any = { 'timestamp': parseInt(measure.timestamp.split('-')[0]) }
+            const currentTimestamp: any = {'timestamp': measure.timestamp};
 
             positions.push( currentPosition );
             timestamps.push( currentTimestamp );

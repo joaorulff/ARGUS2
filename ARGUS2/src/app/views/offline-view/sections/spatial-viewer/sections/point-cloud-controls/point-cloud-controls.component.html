@@ -1,0 +1,47 @@
+<div class="component-container-vertical">
+    
+    <mat-accordion>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Opacity
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <div style="display: flex; flex-direction: column;">
+                <div class="component-container-vertical-height-param" style="--height: 100px;" *ngFor="let pointCloud of this.pointClouds">
+
+                    <div class="component-container-horizontal-height-param" style="--height: 50px;">
+                        <h4>{{pointCloud}}</h4>
+                    </div>
+
+                    <div class="component-container-horizontal-height-param" style="--height: 50px;">
+                        <mat-slider>
+                            <input matSliderThumb>
+                        </mat-slider>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Point Size
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <div style="display: flex;">
+                <div class="component-container-horizontal-height-param" style="--height: 500px; background-color: aqua;"></div>
+            </div>
+            
+        </mat-expansion-panel>
+       
+      </mat-accordion>
+    
+
+</div>

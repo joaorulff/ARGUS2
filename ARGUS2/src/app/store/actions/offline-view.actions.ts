@@ -27,3 +27,21 @@ export const sessionVideosLoaded = createAction(
     '[Offline View] session-videos-loaded',
     props<{videos: { [name: string]: string} }>()
 )
+
+// processing
+export const sessionStreamsNormalized = createAction(
+    '[Offline View] session-streams-normalized',
+    props<{streams: { [name: string]: any} }>()
+)
+
+
+// user selection
+export const timestampSelected = createAction(
+    '[Offline View] timestamp-selected',
+    props<{source: string, timestamp: number}>()
+)
+
+export const closestTimestampsSelected = createAction(
+    '[Offline View] closest-timestamps-selected',
+    props<{source: string, timestamps: { [streamName: string]: number } }>()
+)

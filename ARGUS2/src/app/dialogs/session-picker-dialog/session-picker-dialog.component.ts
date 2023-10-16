@@ -15,7 +15,7 @@ export class SessionPickerDialogComponent {
   public sessionPickerDialogController!: SessionPickerDialogController;
 
   constructor( private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: {sessions: any[] }, private store: Store<{offlineViewState: IOfflineViewState}> ){
-    this.sessionPickerDialogController = new SessionPickerDialogController( this.data.sessions, this.store );
+    this.sessionPickerDialogController = new SessionPickerDialogController( this.data.sessions, this.store, this.dialog );
   }
 
 }

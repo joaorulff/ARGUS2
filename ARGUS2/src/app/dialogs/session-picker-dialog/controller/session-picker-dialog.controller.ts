@@ -1,3 +1,4 @@
+import { MatDialog } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { sessionSelected } from "src/app/store/actions/offline-view.actions";
 import { IOfflineViewState } from "src/app/store/reducers/offline-view.reducer";
@@ -6,7 +7,7 @@ export class SessionPickerDialogController {
 
     public filteredSessions: any[] = [];
 
-    constructor( public sessions: any[] = [], public store: Store<{offlineViewState: IOfflineViewState}> ){
+    constructor( public sessions: any[] = [], public store: Store<{offlineViewState: IOfflineViewState}>, public dialog: MatDialog ){
         this.filteredSessions = this.sessions;
     }
 
@@ -22,5 +23,8 @@ export class SessionPickerDialogController {
 
     public on_session_selected( session: any ): void {
         this.store.dispatch( sessionSelected({ session }) );
+
+        // closing dialog
+        this.dialog.closeAll();
     }
 }

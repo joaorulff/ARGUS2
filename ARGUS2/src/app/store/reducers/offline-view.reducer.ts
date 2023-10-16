@@ -1,6 +1,6 @@
 // ngrx
 import { createReducer, on } from '@ngrx/store'
-import { sessionSelected, sessionStreamsLoaded, sessionVideosLoaded } from '../actions/offline-view.actions';
+import { closestTimestampsSelected, sessionSelected, sessionStreamsLoaded, sessionStreamsNormalized, sessionVideosLoaded } from '../actions/offline-view.actions';
 
 
 export interface IOfflineViewState {
@@ -8,6 +8,7 @@ export interface IOfflineViewState {
     loadedSession: any;
     streams: { [name: string]: any };
     videos: { [name: string]: string };
+    selectedTimestamp: { [streamName: string]: number };
 
 }
 
@@ -15,7 +16,8 @@ const offlineViewState: any = {
     
     loadedSession: null,
     streams: {},
-    videos: {}
+    videos: {},
+    selectedTimestamp: {}
 
 }
 
@@ -28,7 +30,7 @@ export const offlineViewReducer = createReducer(
         return currentState;
     }),
 
-    on( sessionStreamsLoaded, (state: IOfflineViewState, action: {streams: { [name: string]: any} }) => {
+    on( sessionStreamsNormalized, (state: IOfflineViewState, action: {streams: { [name: string]: any} }) => {
 
         // indexing streams
         const currentState: IOfflineViewState = { ...state, streams: action.streams };
@@ -37,6 +39,11 @@ export const offlineViewReducer = createReducer(
 
     on( sessionVideosLoaded, (state: IOfflineViewState, action: {videos: { [name: string]: string } }) => {
         const currentState: IOfflineViewState = { ...state, videos: action.videos };
+        return currentState;
+    }),
+
+    on( closestTimestampsSelected, (state: IOfflineViewState, action: {source: string, timestamps: { [streamName: string]: number }  }) => {
+        const currentState: IOfflineViewState = { ...state, selectedTimestamp: action.timestamps };
         return currentState;
     }),
 

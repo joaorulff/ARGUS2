@@ -12,13 +12,11 @@ export class MediaViewerComponent implements AfterViewInit, OnChanges {
   public mediaViewerController!: MediaViewerController;
 
   @Input('videos') videos: { [name: string]: string } = {};
+  @Input('selectedtimestamp') selectedTimestamp: { [name: string]: number } = {};
 
   // dom refs
   @ViewChild('videocontainerref') videoContainerRef!: ElementRef;
-
-  // events
   
-
   constructor(){
     this.mediaViewerController = new MediaViewerController();
   }
@@ -28,8 +26,16 @@ export class MediaViewerComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    if( 'selectedTimestamp' in changes && !changes['selectedTimestamp'].firstChange && Object.keys(changes['selectedTimestamp'].currentValue).length ){
+
+      if( changes['selectedTimestamp'].currentValue['video'] ){
+        this.mediaViewerController.update_video_timestamp( changes['selectedTimestamp'].currentValue['video'] /1000 );
+      }
+
+    }
     
-    if(  Object.keys(changes['videos'].currentValue).length && !changes['videos'].firstChange ){
+    if( 'videos' in changes && Object.keys(changes['videos'].currentValue).length && !changes['videos'].firstChange ){
       this.mediaViewerController.update_videos( changes['videos'].currentValue );
     }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalFlagsService } from 'src/app/services/globalFlags.service';
 
 
 @Component({
@@ -8,7 +9,6 @@ import { Component } from '@angular/core';
 })
 export class MainViewComponent {
 
-
-  // constructor()
+  constructor( public globalFlags: GlobalFlagsService ){}
   
 }

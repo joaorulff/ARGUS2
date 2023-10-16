@@ -19,6 +19,13 @@ export class MediaViewerController {
 
     }
 
+    public update_video_timestamp( timestamp: number ): void {
+
+        if( this.currentVideo ){
+            this.currentVideo.currentTime = timestamp;
+        }
+    }
+
     public update_videos( videos: { [name: string]: string } ): void {
         this.videos = videos;
         this.select_video( videos['main'] );

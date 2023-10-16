@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { SpatialViewerController } from './controller/spatial-viewer.controller';
 
+// pipes
+import { ObjectToKeysPipe } from 'src/app/pipes/objectToKeys.pipe';
 
 @Component({
   selector: 'app-spatial-viewer',
@@ -18,9 +20,18 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
 
   // inputs
   @Input('streams') streams: any = {};
+  @Input('selectedtimestamp') selectedTimestamp: { [name: string]: number } = {};
+
+  // events
+  @Output('timestampselected') timestampSelected: EventEmitter<{source: string, meta: any}> = new EventEmitter<{source: string, meta: any}>();
 
   constructor( public httpClient: HttpClient ){    
-    this.spatialViewerController = new SpatialViewerController();
+
+    const events: {[name: string]: EventEmitter<any>} = {
+      'timestampselected': this.timestampSelected
+    }
+
+    this.spatialViewerController = new SpatialViewerController( events );
   }
 
   ngAfterViewInit(): void {
@@ -29,12 +40,16 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if( 'streams' in changes ){
+    if( 'selectedTimestamp' in changes ){
+      if(  !changes['selectedTimestamp'].firstChange ){
+        this.spatialViewerController.update_highlight( changes['selectedTimestamp'].currentValue );
+      }
+    }
 
+    if( 'streams' in changes ){
       if(  Object.keys(changes['streams'].currentValue).length && !changes['streams'].firstChange ){
         this.spatialViewerController.update_dataset( changes['streams'].currentValue );
       }
-
     }
     
   }
