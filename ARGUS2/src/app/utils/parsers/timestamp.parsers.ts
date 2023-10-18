@@ -44,9 +44,25 @@ export class TimestampParsers {
                 return TimestampParsers.parse_eye_point_cloud( stream, firstEntry );
             case 'hand':
                 return TimestampParsers.parse_hand_point_cloud( stream, firstEntry );
+            case 'detic:memory':
+                return TimestampParsers.parse_memory_point_cloud( stream, firstEntry );
         }
 
     }
+
+    private static parse_memory_point_cloud( stream: any, firstEntry: number ): any {
+
+        const normalizedStream: any[] = [];
+        stream.forEach( (measurement: any) => {
+            const timestamp: number = parseInt(measurement.timestamp.split('-')[0]); 
+            const normalizedTimestamp: number = timestamp - firstEntry;
+            normalizedStream.push( { ...measurement, timestamp: normalizedTimestamp} )
+        });
+
+
+        return normalizedStream;
+    }
+
 
     private static parse_world_point_cloud( stream: any, firstEntry: number ): number[] {
         return stream;
@@ -54,10 +70,9 @@ export class TimestampParsers {
 
     private static parse_eye_point_cloud( stream: any, firstEntry: number ): any {
 
-        // const normalizedTimestamps: number[] = [];
         const normalizedStream: any[] = [];
         stream.forEach( (measurement: any) => {
-            const timestamp: number = parseInt(measurement.timestamp.split('_')[0]); 
+            const timestamp: number = parseInt(measurement.timestamp.split('-')[0]); 
             const normalizedTimestamp: number = timestamp - firstEntry;
             normalizedStream.push( { ...measurement, timestamp: normalizedTimestamp} )
         });

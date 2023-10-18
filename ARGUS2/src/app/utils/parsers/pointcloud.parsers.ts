@@ -9,6 +9,8 @@ export class PointCloudParsers {
                 return PointCloudParsers.parse_eye_point_cloud( stream );
             case 'hand':
                 return PointCloudParsers.parse_hand_point_cloud( stream );
+            case 'detic:memory':
+                return PointCloudParsers.parse_memory_point_cloud( stream );
           }
     }
 
@@ -31,6 +33,21 @@ export class PointCloudParsers {
 
     private static parse_hand_point_cloud( stream: any ): any {
 
+        return { positions: [], colors: [], normals: [], meta: [] };
+    }
+
+    private static parse_memory_point_cloud( stream: any ): any {
+
+        const timestamps: number[] = [];
+        const objects: { [name: string]: number[] } = {};
+
+        stream.forEach( (entry: any) => {
+
+            // entry.values
+
+            console.log('Entry: ', entry.values);
+        })
+ 
         return { positions: [], colors: [], normals: [], meta: [] };
     }
 

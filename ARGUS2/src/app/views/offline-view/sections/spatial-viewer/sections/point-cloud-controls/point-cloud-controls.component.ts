@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PointCloudControlsController } from './controller/point-cloud-controls.controller';
 
 @Component({
@@ -14,8 +14,16 @@ export class PointCloudControlsComponent {
   // inputs
   @Input('loadedpointclouds') pointClouds: string[] = [];
 
+  // events
+  @Output('onstylechange') onStyleChange: EventEmitter<{objectName: string, styleName: string, value: number}> = new EventEmitter<{objectName: string, styleName: string, value: number}>();
+
   constructor(){
     
+    const events: { [eventName: string]: EventEmitter<any> } = {
+      'onstylechange': this.onStyleChange
+    }
+
+    this.pointCloudControlsController = new PointCloudControlsController( events );
   }
 
 }

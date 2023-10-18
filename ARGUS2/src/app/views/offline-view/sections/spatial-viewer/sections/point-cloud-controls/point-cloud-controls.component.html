@@ -12,17 +12,19 @@
             <div style="display: flex; flex-direction: column;">
                 <div class="component-container-vertical-height-param" style="--height: 100px;" *ngFor="let pointCloud of this.pointClouds">
 
-                    <div class="component-container-horizontal-height-param" style="--height: 50px;">
+                    <div class="component-container-horizontal-height-param" style="--height: 50px; align-items: flex-end;">
                         <h4>{{pointCloud}}</h4>
                     </div>
 
+
                     <div class="component-container-horizontal-height-param" style="--height: 50px;">
-                        <mat-slider>
-                            <input matSliderThumb>
+                        <mat-slider [min]="0" [max]="1" [step]="0.05">
+                            <input  matSliderThumb (valueChange)="this.pointCloudControlsController.on_style_change( pointCloud, 'opacity', $event )"> 
                         </mat-slider>
                     </div>
 
-                    
+                    <mat-divider></mat-divider>
+
                 </div>
             </div>
             
@@ -35,8 +37,24 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             
-            <div style="display: flex;">
-                <div class="component-container-horizontal-height-param" style="--height: 500px; background-color: aqua;"></div>
+            <div style="display: flex; flex-direction: column;">
+                <div class="component-container-vertical-height-param" style="--height: 100px;" *ngFor="let pointCloud of this.pointClouds">
+
+                    <div class="component-container-horizontal-height-param" style="--height: 50px; align-items: flex-end;">
+                        <h4>{{pointCloud}}</h4>
+                    </div>
+
+
+                    <div class="component-container-horizontal-height-param" style="--height: 50px;">
+                        <mat-slider [min]="0" [max]="0.5" [step]="0.005">
+                            <input matSliderThumb
+                                (valueChange)="this.pointCloudControlsController.on_style_change( pointCloud, 'size', $event )"> 
+                        </mat-slider>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                </div>
             </div>
             
         </mat-expansion-panel>

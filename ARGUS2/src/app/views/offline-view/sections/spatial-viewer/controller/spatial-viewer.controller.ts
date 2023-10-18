@@ -39,9 +39,11 @@ export class SpatialViewerController {
 
     }
 
-    public update_dataset( streams: any ): void {
+    public update_style( objectName: string, styleName: string, value: number ): void {
+        this.egoCloud.set_style( objectName, styleName, value );
+    }
 
-        console.log('Updating');
+    public update_dataset( streams: any ): void {
 
         // Creating dataset
         const dataset: Dataset = new Dataset();
@@ -51,10 +53,20 @@ export class SpatialViewerController {
         STREAMNAMES.forEach( (name: string) => {
             if( name in streams ){
 
+                // TODO: make this interface uniform
                 if( name === 'voxelized-pointcloud' ){
                     availableStreams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
                     dataset.add_point_cloud( name, availableStreams[name].positions, availableStreams[name].colors, [], [], false, false, true  );
-                } else { 
+
+                } 
+                
+                else if( name === 'detic:memory' ){
+
+                    // PointCloudParsers.parse_stream_into_pointcloud(name, streams[name]);
+
+                } 
+                
+                else { 
                     availableStreams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
                     dataset.add_point_cloud( name, availableStreams[name].positions, availableStreams[name].colors, [], availableStreams[name].meta, false, true );
                     
