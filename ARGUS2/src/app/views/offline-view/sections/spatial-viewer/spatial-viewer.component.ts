@@ -20,6 +20,7 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
 
   // inputs
   @Input('streams') streams: any = {};
+  // @Input('')
   @Input('selectedtimestamp') selectedTimestamp: { [name: string]: number } = {};
 
   // events
@@ -47,6 +48,7 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
     }
 
     if( 'streams' in changes ){
+
       if(  Object.keys(changes['streams'].currentValue).length && !changes['streams'].firstChange ){
         this.spatialViewerController.update_dataset( changes['streams'].currentValue );
       }

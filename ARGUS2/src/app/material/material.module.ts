@@ -16,6 +16,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 const MATERIAL_MODULES = [
@@ -27,7 +28,7 @@ const MATERIAL_MODULES = [
     MatSelectModule,    MatDividerModule,
     MatGridListModule,  MatProgressSpinnerModule,   
     MatFormFieldModule, MatInputModule,
-    MatExpansionModule
+    MatExpansionModule, MatCheckboxModule
 ]
 
 @NgModule({

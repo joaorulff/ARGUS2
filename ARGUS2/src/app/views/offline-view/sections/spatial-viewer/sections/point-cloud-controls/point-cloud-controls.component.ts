@@ -16,11 +16,13 @@ export class PointCloudControlsComponent {
 
   // events
   @Output('onstylechange') onStyleChange: EventEmitter<{objectName: string, styleName: string, value: number}> = new EventEmitter<{objectName: string, styleName: string, value: number}>();
+  @Output('onvisibilitychange') onVisibilityChange: EventEmitter<{objectName: string, visible: boolean}> = new EventEmitter<{objectName: string, visible: boolean}>();
 
   constructor(){
     
     const events: { [eventName: string]: EventEmitter<any> } = {
-      'onstylechange': this.onStyleChange
+      'onstylechange': this.onStyleChange,
+      'onvisibilitychange': this.onVisibilityChange
     }
 
     this.pointCloudControlsController = new PointCloudControlsController( events );

@@ -24,7 +24,7 @@ export class ModelViewerComponent implements AfterViewInit {
   
     setTimeout( () => {
       this.modelViewerController.update();
-    }, 3000);
+    }, 1000);
   }
 
 }

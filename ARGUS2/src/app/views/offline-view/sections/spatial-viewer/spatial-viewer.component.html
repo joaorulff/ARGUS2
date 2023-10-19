@@ -2,6 +2,7 @@
     
     <div style="top: 50px; left: calc(100% - 350px); width: 300px; height: 300px; position: absolute; display: flex; z-index: 2;">
         <app-point-cloud-controls 
+            (onvisibilitychange)="this.spatialViewerController.update_visibility($event.objectName, $event.visible)"
             (onstylechange)="this.spatialViewerController.update_style($event.objectName, $event.styleName, $event.value)"
             [loadedpointclouds]="this.spatialViewerController.streams | objectToKeys">
         </app-point-cloud-controls>

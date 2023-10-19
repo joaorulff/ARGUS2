@@ -58,6 +58,28 @@
             </div>
             
         </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Visibility
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <div style="display: flex; flex-direction: column;">
+                <div class="component-container-vertical-height-param" style="--height: 60px;" *ngFor="let pointCloud of this.pointClouds">
+
+                    <div class="component-container-horizontal-height-param" style="--height: 50px;">
+                        <mat-checkbox (change)="this.pointCloudControlsController.on_visibility_change(pointCloud, $event)">{{ pointCloud }}</mat-checkbox>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                </div>
+            </div>
+            
+        </mat-expansion-panel>
        
       </mat-accordion>
     

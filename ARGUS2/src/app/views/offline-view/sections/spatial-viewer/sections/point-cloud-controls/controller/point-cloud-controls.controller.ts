@@ -1,4 +1,5 @@
 import { EventEmitter } from "@angular/core";
+import { MatCheckboxChange } from "@angular/material/checkbox";
 
 export class PointCloudControlsController{
 
@@ -8,12 +9,19 @@ export class PointCloudControlsController{
 
     public on_style_change( objectName: string, styleName: string, value: number ): void{
 
-        console.log(value);
-
         this.events['onstylechange'].emit( {
             objectName, styleName, value
         });
         
+    }
+
+    public on_visibility_change( objectName: string, visible: MatCheckboxChange ): void {
+
+        this.events['onvisibilitychange'].emit( {
+            objectName,
+            visible: visible.checked
+        });
+                
     }
 
 }

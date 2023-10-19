@@ -33,28 +33,63 @@ export class PointCloudParsers {
 
     private static parse_hand_point_cloud( stream: any ): any {
 
+
+
         return { positions: [], colors: [], normals: [], meta: [] };
     }
 
     private static parse_memory_point_cloud( stream: any ): any {
 
-        const timestamps: number[] = [];
-        const objects: { [name: string]: number[] } = {};
+        const timestamps: { [name: string]: number[] } = {};
+        const objects: { [name: string]: number[][] } = {};
 
         stream.forEach( (entry: any) => {
+            
+            const currentTimestamp: number = entry.timestamp;
+            entry.values.forEach( (label: {pos: number[], label: string, status: string, last_seen: number}) => {
+                
+                if( !(label.label in objects) ){
+                    timestamps[label.label] = [];
+                    objects[label.label] = [];
+                }
 
-            // entry.values
+                timestamps[label.label].push( currentTimestamp );
+                objects[label.label].push( label.pos );
 
-            console.log('Entry: ', entry.values);
+            })
         })
- 
-        return { positions: [], colors: [], normals: [], meta: [] };
+
+
+        const pointClouds: { [name: string]: { positions: number[][], colors: number[][], normals: number[][], meta: any[] } } = {};
+        Object.keys( objects ).forEach( ( label: string ) => {
+
+            pointClouds[ label ] = {
+                positions: objects[label],
+                colors: [],
+                normals: [],
+                meta: timestamps[ label ]
+            }
+        })
+
+
+        return pointClouds;
     }
 
     private static parse_world_point_cloud( stream: any ): any {
 
-        const positions = stream.xyz_world
-        const colors = stream.colors;
+        // const positions = stream.xyz_world
+        // const colors = stream.colors;
+
+        const positions = []
+        const colors = [];
+
+        // TODO: Removing hands manually
+        stream.xyz_world.forEach( (position: number[], index: number) => {
+            if(position[1] < -0.79){
+                positions.push(position);
+                colors.push(stream.colors[index]);
+            }
+        })
 
         return { positions, colors, normals: [], meta: [] };
     }

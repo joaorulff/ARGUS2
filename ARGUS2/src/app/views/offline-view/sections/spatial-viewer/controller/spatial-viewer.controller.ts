@@ -22,25 +22,30 @@ export class SpatialViewerController {
 
     public update_highlight( timestamp: {[name: string]: number} ): void {
 
-        for( const stream in timestamp ){
+        console.log(timestamp);
+        // for( const stream in timestamp ){
 
-            if( stream in this.streams ){
+        //     if( stream in this.streams ){
 
-                if( !(stream in this.streams)){
-                    continue;
-                }
+        //         if( !(stream in this.streams)){
+        //             continue;
+        //         }
 
-                const index: number = this.indexedTimestamps[stream][timestamp[stream]];
-                const point: any = this.streams[stream].positions[index];
-                this.egoCloud.highlight_object( 'point', point );
-            }
+        //         const index: number = this.indexedTimestamps[stream][timestamp[stream]];
+        //         const point: any = this.streams[stream].positions[index];
+        //         this.egoCloud.highlight_object( 'point', point );
+        //     }
             
-        }
+        // }
 
     }
 
     public update_style( objectName: string, styleName: string, value: number ): void {
         this.egoCloud.set_style( objectName, styleName, value );
+    }
+
+    public update_visibility( objectName: string, visible: boolean ): void {
+        this.egoCloud.hide( objectName, visible );
     }
 
     public update_dataset( streams: any ): void {
@@ -62,13 +67,17 @@ export class SpatialViewerController {
                 
                 else if( name === 'detic:memory' ){
 
-                    // PointCloudParsers.parse_stream_into_pointcloud(name, streams[name]);
+                    const memoryPointClouds: { [name: string]: { positions: number[][], colors: number[][], normals: number[][], meta: any[] } } = PointCloudParsers.parse_stream_into_pointcloud(name, streams[name]);
+                    Object.keys( memoryPointClouds ).forEach( ( label: string ) => {
+                        availableStreams[label] = memoryPointClouds[label];                       
+                        dataset.add_point_cloud( label, memoryPointClouds[label].positions, memoryPointClouds[label].normals, memoryPointClouds[label].colors, memoryPointClouds[label].meta, false, true, false );
+                    });
 
                 } 
                 
                 else { 
                     availableStreams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
-                    dataset.add_point_cloud( name, availableStreams[name].positions, availableStreams[name].colors, [], availableStreams[name].meta, false, true );
+                    dataset.add_point_cloud( name, availableStreams[name].positions, availableStreams[name].colors, [], availableStreams[name].meta, false, true, false );
                     
                     // Indexing timestamps. This is useful to translate timestamps to data indices.
                     this.indexedTimestamps[name] = TimestampParsers.index_stream_timestamps( name, availableStreams[name].meta );
@@ -80,13 +89,21 @@ export class SpatialViewerController {
         this.streams = availableStreams;
         this.egoCloud.render( dataset );
 
+        // hiding all streams
+        Object.keys(this.streams).forEach( ( name: string ) => {
+            this.egoCloud.hide( name, false );
+        });
+
     }
 
     public initialize_component( containerRef: HTMLDivElement ): void {
 
         this.egoCloud = new SceneViewer( containerRef, {
             'onHover': ( index: number, name: string, position: number[], meta: any ) => {
-                this.events['timestampselected'].emit( {source: 'spatial-viewer', meta: meta} );
+
+                console.log(position);
+                // this.events['timestampselected'].emit( {source: 'spatial-viewer', meta: meta} );
+            
             }  
         } );
     }
