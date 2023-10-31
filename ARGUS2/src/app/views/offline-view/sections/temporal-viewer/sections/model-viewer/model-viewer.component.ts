@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { ModelViewerController } from './controller/model-viewer.controller';
 
 @Component({
@@ -6,7 +6,7 @@ import { ModelViewerController } from './controller/model-viewer.controller';
   templateUrl: './model-viewer.component.html',
   styleUrls: ['./model-viewer.component.scss']
 })
-export class ModelViewerComponent implements AfterViewInit {
+export class ModelViewerComponent implements AfterViewInit, OnChanges {
 
   // controller
   public modelViewerController!: ModelViewerController;
@@ -14,17 +14,30 @@ export class ModelViewerComponent implements AfterViewInit {
   // DOM Refs
   @ViewChild('containerref') containerRef!: ElementRef;
 
+  // inputs
+  @Input('streamname') streamName: string = '';
+  @Input('stream') stream: any = {};
+
   constructor(){
     this.modelViewerController = new ModelViewerController();
   }
 
   ngAfterViewInit(): void {
     this.modelViewerController.initialize_component( this.containerRef.nativeElement );
-  
-  
-    setTimeout( () => {
-      this.modelViewerController.update();
-    }, 1000);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if( 'stream' in changes && !changes['stream'].firstChange ){
+      if(changes['stream'].currentValue){
+        this.modelViewerController.update( this.streamName, changes['stream'].currentValue );
+      }
+    }
+
+    // setTimeout( () => {
+    //   this.modelViewerController.update();
+    // }, 1000);
+
   }
 
 }

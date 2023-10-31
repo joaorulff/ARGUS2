@@ -67,11 +67,11 @@ export class SpatialViewerController {
                 
                 else if( name === 'detic:memory' ){
 
-                    const memoryPointClouds: { [name: string]: { positions: number[][], colors: number[][], normals: number[][], meta: any[] } } = PointCloudParsers.parse_stream_into_pointcloud(name, streams[name]);
-                    Object.keys( memoryPointClouds ).forEach( ( label: string ) => {
-                        availableStreams[label] = memoryPointClouds[label];                       
-                        dataset.add_point_cloud( label, memoryPointClouds[label].positions, memoryPointClouds[label].normals, memoryPointClouds[label].colors, memoryPointClouds[label].meta, false, true, false );
-                    });
+                    // const memoryPointClouds: { [name: string]: { positions: number[][], colors: number[][], normals: number[][], meta: any[] } } = PointCloudParsers.parse_stream_into_pointcloud(name, streams[name]);
+                    // Object.keys( memoryPointClouds ).forEach( ( label: string ) => {
+                    //     availableStreams[label] = memoryPointClouds[label];                       
+                    //     dataset.add_point_cloud( label, memoryPointClouds[label].positions, memoryPointClouds[label].normals, memoryPointClouds[label].colors, memoryPointClouds[label].meta, false, true, false );
+                    // });
 
                 } 
                 
@@ -85,6 +85,9 @@ export class SpatialViewerController {
 
             }
         });
+
+
+        console.log(dataset);
 
         this.streams = availableStreams;
         this.egoCloud.render( dataset );

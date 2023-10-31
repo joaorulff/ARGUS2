@@ -29,19 +29,19 @@
 
     <mat-divider [vertical]="true"></mat-divider>
 
-    <!-- [selectedtimestamp]="" -->
     <div class="component-container-vertical">
         
         <div class="component-container-horizontal-height-param" style="--height: 30%;">
             <app-media-viewer 
                 [selectedtimestamp]="(this.offlineViewController.selectedTimestamp$ | async)"
-                [videos]="(this.offlineViewController.loadedVideos$ | async)!"></app-media-viewer>
+                [videos]="(this.offlineViewController.loadedVideos$ | async)!">
+            </app-media-viewer>
         </div>
 
         <mat-divider></mat-divider>
 
         <div class="component-container-horizontal">
-            <app-temporal-viewer></app-temporal-viewer>
+            <app-temporal-viewer [streams]="this.offlineViewController.loadedStreams$ | async"></app-temporal-viewer>
         </div>
         
     </div>

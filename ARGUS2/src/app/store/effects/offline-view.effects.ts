@@ -114,7 +114,7 @@ export class OfflineViewEffects {
             return streams
 
         }),
-        map( (response: any[], a: any ) => {
+        map( (response: any[]) => {
 
             const loadedStreams: { [streamName: string]: any } = {};
             STREAMNAMES.forEach( (streamName: string, index: number) => {
@@ -157,7 +157,7 @@ export class OfflineViewEffects {
                 const timestamps: number[] = response[name].map( (entry: any) => entry.timestamp );
                 this.timestampManagerService.create_stream_timestamp_index( name, timestamps );
             }
-            
+
             return sessionStreamsNormalized( {streams: response} );
         })
 

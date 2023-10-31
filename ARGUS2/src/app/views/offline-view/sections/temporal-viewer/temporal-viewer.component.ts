@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-temporal-viewer',
@@ -8,7 +8,6 @@ import { Component, Input } from '@angular/core';
 export class TemporalViewerComponent {
 
   // inputs
-  @Input('objects') objects: any = {};
-
+  @Input('streams') streams: any = {};
 
 }

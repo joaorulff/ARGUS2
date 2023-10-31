@@ -9,6 +9,7 @@ export class SessionPickerDialogController {
 
     constructor( public sessions: any[] = [], public store: Store<{offlineViewState: IOfflineViewState}>, public dialog: MatDialog ){
         this.filteredSessions = this.sessions;
+
     }
 
     /*
@@ -18,7 +19,7 @@ export class SessionPickerDialogController {
     * 
     */
     public filter_sessions_by_keyword( keyword: string ): void {
-        this.filteredSessions = this.sessions.filter( ( session: any ) =>  (<string>session.name).includes(keyword) )
+        this.filteredSessions = this.sessions.filter( ( session: any ) =>  (<string>session.name).includes(keyword) );
     }
 
     public on_session_selected( session: any ): void {

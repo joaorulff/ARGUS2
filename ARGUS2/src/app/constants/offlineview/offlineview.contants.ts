@@ -1,4 +1,5 @@
-export const STREAMNAMES: string[] = [ 'voxelized-pointcloud', 'eye', 'detic:memory' ];
+export const STREAMNAMES: string[] = [ 'voxelized-pointcloud', 'eye', 'detic:memory'];
+// 'reasoning:check_status' 
 export const VIDEONAMES: string[] = [ 'main', 'depthlt', 'glf', 'gll', 'grf', 'grr' ];
 
 // tracked objects

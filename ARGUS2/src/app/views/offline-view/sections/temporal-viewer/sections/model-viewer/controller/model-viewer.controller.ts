@@ -1,4 +1,5 @@
 import { ModelViewer } from 'modelviewer';
+import { ModelViewerParsers } from 'src/app/utils/parsers/modelviewer.parsers';
 
 export class ModelViewerController {
 
@@ -11,21 +12,14 @@ export class ModelViewerController {
         this.modelViewer = new ModelViewer( containerRef );
     }
     
-    public update(): void {
+    public update( streamName: string, streamData: any ): void {
 
-        // synthetic data
-        const data =  
-        { name: 'actions', 
-            labels: [
-                { name: 'tortilla', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'knife', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'plate', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'paper towel', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'board', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'toothpicks', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'dental floss', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'jam', values: Array.from({length: 100}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() }
-            ]}
+        const labels: { name: string, values: number[], confidence: number, coverage: number }[]  = ModelViewerParsers.parse_stream_stream( streamName, streamData );
+
+        const data = {
+            name: 'perception',
+            labels: labels
+        }
 
         this.modelViewer.update( data, null,  [0, 180000] );
 

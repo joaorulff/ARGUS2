@@ -85,10 +85,11 @@ export class PointCloudParsers {
 
         // TODO: Removing hands manually
         stream.xyz_world.forEach( (position: number[], index: number) => {
-            if(position[1] < -0.79){
-                positions.push(position);
-                colors.push(stream.colors[index]);
-            }
+
+            positions.push(position);
+            colors.push(stream.colors[index]);
+            
+            // if(position[1] < -0.79){}
         })
 
         return { positions, colors, normals: [], meta: [] };

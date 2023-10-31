@@ -30,7 +30,6 @@ export class TimestampParsers {
 
 
 
-
     /*
     * These functions will take the raw timestamp on the streams and transform into a global integer timestamp.
     */
@@ -46,8 +45,38 @@ export class TimestampParsers {
                 return TimestampParsers.parse_hand_point_cloud( stream, firstEntry );
             case 'detic:memory':
                 return TimestampParsers.parse_memory_point_cloud( stream, firstEntry );
+            case 'reasoning:check_status':
+                return TimestampParsers.parse_reasoning_output( stream, firstEntry );
         }
 
+    }
+
+    private static parse_reasoning_output( stream: any, firstEntry: number ): any {
+
+        let recipeIDs: number[] = stream.map( (measurement: any) => measurement.values[0].session_id );
+        recipeIDs = Array.from( new Set( recipeIDs ) );
+
+        const indexedRecipeIDs: { [recipeIDs: string]: any[] } = {};
+        recipeIDs.forEach( (id: number) => {
+            indexedRecipeIDs[id] = [];
+        });
+
+
+        // stream.forEach( (entry: any) => {
+
+        //     const currentTimestamp: number = parseInt(entry.timestamp.split('-')[0]) - firstEntry;
+        //     console.log(currentTimestamp);
+            
+        // })
+        // generating arrays
+
+
+        // const normalizedStream: { [recipeID: string]: } = [];
+        // stream.forEach( (measurement: any) => {
+        //     console.log(measurement);
+        // });
+
+        return {}
     }
 
     private static parse_memory_point_cloud( stream: any, firstEntry: number ): any {
@@ -58,7 +87,6 @@ export class TimestampParsers {
             const normalizedTimestamp: number = timestamp - firstEntry;
             normalizedStream.push( { ...measurement, timestamp: normalizedTimestamp} )
         });
-
 
         return normalizedStream;
     }

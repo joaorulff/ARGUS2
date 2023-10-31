@@ -1,6 +1,19 @@
 <div class="component-container-vertical">
 
     <div class="component-container-horizontal">
+        <app-model-viewer 
+            [stream]="this.streams | streamSetToStream: 'detic:memory' "
+            [streamname]="'detic:memory'">
+        </app-model-viewer>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="component-container-horizontal">
+
+    </div>
+
+    <!-- <div class="component-container-horizontal">
         <app-model-viewer></app-model-viewer>
     </div>
 
@@ -8,12 +21,6 @@
 
     <div class="component-container-horizontal">
         <app-model-viewer></app-model-viewer>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <div class="component-container-horizontal">
-        <app-model-viewer></app-model-viewer>
-    </div>
+    </div> -->
 
 </div>

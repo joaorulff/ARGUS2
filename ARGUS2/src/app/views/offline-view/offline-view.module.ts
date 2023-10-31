@@ -12,7 +12,10 @@ import { QueryBarComponent } from './sections/query-bar/query-bar.component';
 import { CommonModule } from "@angular/common";
 import { ModelViewerComponent } from './sections/temporal-viewer/sections/model-viewer/model-viewer.component';
 import { PointCloudControlsComponent } from './sections/spatial-viewer/sections/point-cloud-controls/point-cloud-controls.component';
+
+// pipes
 import { ObjectToKeysPipe } from "src/app/pipes/objectToKeys.pipe";
+import { StreamSetToStreamPipe } from "src/app/pipes/streamSetToStream";
 
 @NgModule({
     declarations: [
@@ -23,7 +26,8 @@ import { ObjectToKeysPipe } from "src/app/pipes/objectToKeys.pipe";
         QueryBarComponent,
         ModelViewerComponent,
         PointCloudControlsComponent,
-        ObjectToKeysPipe
+        ObjectToKeysPipe,
+        StreamSetToStreamPipe
     ],
     imports: [
         MaterialModule,

@@ -52,7 +52,7 @@ export class MediaViewerController {
         video.style.height = '100%';
 
         // controls
-        // video.controls = true;
+        video.controls = true;
 
         // saving ref
         this.currentVideo = video;
