@@ -20,7 +20,6 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
 
   // inputs
   @Input('streams') streams: any = {};
-  // @Input('')
   @Input('selectedtimestamp') selectedTimestamp: { [name: string]: number } = {};
 
   // events

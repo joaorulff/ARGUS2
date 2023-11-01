@@ -22,21 +22,20 @@ export class SpatialViewerController {
 
     public update_highlight( timestamp: {[name: string]: number} ): void {
 
-        console.log(timestamp);
-        // for( const stream in timestamp ){
+        for( const stream in timestamp ){
 
-        //     if( stream in this.streams ){
+            if( stream in this.streams ){
 
-        //         if( !(stream in this.streams)){
-        //             continue;
-        //         }
+                if( !(stream in this.streams)){
+                    continue;
+                }
 
-        //         const index: number = this.indexedTimestamps[stream][timestamp[stream]];
-        //         const point: any = this.streams[stream].positions[index];
-        //         this.egoCloud.highlight_object( 'point', point );
-        //     }
+                const index: number = this.indexedTimestamps[stream][timestamp[stream]];
+                const point: any = this.streams[stream].positions[index];
+                this.egoCloud.highlight_object( 'point', point );
+            }
             
-        // }
+        }
 
     }
 
@@ -73,7 +72,9 @@ export class SpatialViewerController {
                     //     dataset.add_point_cloud( label, memoryPointClouds[label].positions, memoryPointClouds[label].normals, memoryPointClouds[label].colors, memoryPointClouds[label].meta, false, true, false );
                     // });
 
-                } 
+                } else if( name === 'detic:image:misc:for3d'){
+                    
+                }
                 
                 else { 
                     availableStreams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
@@ -85,9 +86,6 @@ export class SpatialViewerController {
 
             }
         });
-
-
-        console.log(dataset);
 
         this.streams = availableStreams;
         this.egoCloud.render( dataset );
@@ -104,7 +102,7 @@ export class SpatialViewerController {
         this.egoCloud = new SceneViewer( containerRef, {
             'onHover': ( index: number, name: string, position: number[], meta: any ) => {
 
-                console.log(position);
+                // console.log(position);
                 // this.events['timestampselected'].emit( {source: 'spatial-viewer', meta: meta} );
             
             }  

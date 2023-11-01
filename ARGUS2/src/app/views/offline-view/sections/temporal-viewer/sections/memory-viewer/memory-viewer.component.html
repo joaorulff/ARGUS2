@@ -1,0 +1,46 @@
+<div class="component-container-vertical">
+
+    <div class="component-container-horizontal-height-param" style="--height: 70px;">
+
+        <div class="component-container-horizontal">
+
+            <div class="component-container-horizontal">
+
+                <div class="component-container-horizontal center-element">
+                    <h1>{{ this.streamName }}</h1>
+                </div>
+                
+                <div class="component-container-horizontal center-element">
+                    <mat-form-field>
+                        <mat-label>Label</mat-label>
+                        <mat-select (selectionChange)="this.memoryViewerController.change_label($event.value)" [disabled]="this.memoryViewerController.labels.length === 0">
+                            <mat-option *ngFor="let label of this.memoryViewerController.labels" [value]="label">
+                                {{label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- <mat-form-field>
+            <mat-label>Cars</mat-label>
+            <select matNativeControl required>
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </select>
+          </mat-form-field> -->
+
+    </div>
+
+    <div class="component-container-horizontal">
+        <div class="component-container-horizontal center-element" style="position: relative;">
+            <div style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" #containerref></div>
+        </div>
+    </div>
+
+</div>

@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 export class MediaViewerController {
 
     public videos: { [name: string]: string } = {};
@@ -9,9 +11,13 @@ export class MediaViewerController {
     public maxWidth: number = 0;
     public maxHeight: number = 0;
 
+    // svg
+
+
     constructor(){}
 
     public initialize_component( videoContainer: HTMLDivElement ): void {
+
         this.videoContainer = videoContainer;
 
         this.maxWidth = videoContainer.parentElement!.offsetWidth;
@@ -30,6 +36,8 @@ export class MediaViewerController {
         this.videos = videos;
         this.select_video( videos['main'] );
     }
+
+    // public update_metadata( metadata: )
 
     public select_video( videoPath: string ): void {
         this.selectedVideo = videoPath;
@@ -52,34 +60,36 @@ export class MediaViewerController {
         video.style.height = '100%';
 
         // controls
-        video.controls = true;
+        video.controls = false;
 
         // saving ref
         this.currentVideo = video;
 
         video.onloadedmetadata = (response: any) => {
 
+            let containerWidth: number = video.videoWidth;
+            let containerHeight: number = video.videoHeight;
+            let ratioFactor: number = 1.0;
 
-            const width: number = video.videoWidth;
-            const height: number = video.videoHeight;
-            
-            let containerWidth: number = 0;
-            let containerHeight: number = 0;
-            let ratio: number = 0;
+            if( containerWidth > this.maxWidth ){
 
-            // TODO: Make sure this scaling is working correctly
+                do{ 
+                    ratioFactor -= 0.01;
+                    containerWidth = video.videoWidth * ratioFactor;
+                    containerHeight = video.videoHeight * ratioFactor;
+                }while( containerWidth > this.maxWidth && containerHeight > this.maxHeight );
 
-            containerWidth = this.maxWidth;
-            ratio = width/this.maxWidth;
-            containerHeight = (ratio < 0) ? this.maxHeight*ratio: this.maxHeight/ratio;
+            } else {
 
-            // if it didn't fit. Try to fit the inverse.
-            if( containerHeight > this.maxHeight ){ 
+                do{ 
+                    ratioFactor += 0.01;
+                    containerWidth = video.videoWidth * ratioFactor;
+                    containerHeight = video.videoHeight * ratioFactor;
 
-                containerHeight = this.maxHeight;
-                ratio = height/this.maxHeight;
-                // containerWidth = this.maxWidth*ratio;
-                containerWidth = (ratio < 0) ? this.maxWidth/ratio : this.maxWidth*ratio;
+                } while( containerWidth < this.maxWidth && containerHeight < this.maxHeight );
+
+                containerWidth = video.videoWidth * (ratioFactor - 0.01);
+                containerHeight = video.videoHeight * (ratioFactor - 0.01);
 
             }
 

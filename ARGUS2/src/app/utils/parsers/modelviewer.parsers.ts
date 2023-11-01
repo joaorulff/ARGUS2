@@ -8,8 +8,50 @@ export class ModelViewerParsers {
 
         switch(streamName){
             case 'detic:memory':
-                return ModelViewerParsers.parse_perception_stream( stream );
+                return ModelViewerParsers.parse_memory_stream( stream );
+            // case 'detic:image:misc:for3d':
+            //     return ModelViewerParsers.parse_detic_image_misc( stream );
         }
+
+    }
+
+    // private static parse_detic_image_misc( stream ): any {
+
+    //     const objectNames: string[] = stream.reduce( (labels, current) => {
+    //         const currentObjects: Set<string> = current.objects.map( (object: any) => object.label);            
+    //         currentObjects .forEach( (object: string) => {
+    //             labels.add( object );
+    //         })
+    //         return labels;
+    //     }, new Set());
+
+    //     stream.forEach()
+
+
+    //     return []
+    // }
+
+    private static parse_memory_stream( stream: any ): { [labelName: string]: { [id: number] : { value: string | number, timestamp: number }[] } } {
+
+        const indexedIDs: { [labelName: string]: { [id: number] : { value: string | number, timestamp: number }[] } } = {};
+        stream.forEach( (entry: any) => {
+
+            const currentTimestamp: number = entry.timestamp;
+            entry.values.forEach( (object: any) => {
+
+                if( !(object.label in indexedIDs) ){
+                    indexedIDs[object.label] = {};
+                }
+
+                if( !(object.id in indexedIDs[object.label] ) ){
+                    indexedIDs[object.label][object.id] = [];
+                }
+
+                indexedIDs[object.label][object.id].push({ value: object.status, timestamp: currentTimestamp });            
+            })
+        });
+
+        return indexedIDs;        
 
     }
 
@@ -43,8 +85,6 @@ export class ModelViewerParsers {
 
             })
         })
-
-        
 
         return Object.values( labels );
     }

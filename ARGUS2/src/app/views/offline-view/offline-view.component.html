@@ -1,13 +1,13 @@
 <div class="component-container-horizontal">
     
-    <div class="component-container-horizontal-width-param" style="--width: 80%">
+    <div class="component-container-horizontal-width-param" style="--width: 70%">
 
         <div style="width: 100%; height: 100%; position: relative;">
-        
+
+            <!-- (timestampselected)="this.offlineViewController.on_timestamp_selected($event)" -->
             <div style="width: 100%; height: 100%; top: 0px; left: 0px; position: absolute;">
                 <div style="width: 100%; height: 100%; display: flex;">
                     <app-spatial-viewer 
-                        (timestampselected)="this.offlineViewController.on_timestamp_selected($event)"
                         [selectedtimestamp]="(this.offlineViewController.selectedTimestamp$ | async)"
                         [streams]="this.offlineViewController.loadedStreams$ | async">
                     </app-spatial-viewer>
@@ -33,15 +33,20 @@
         
         <div class="component-container-horizontal-height-param" style="--height: 30%;">
             <app-media-viewer 
+                
                 [selectedtimestamp]="(this.offlineViewController.selectedTimestamp$ | async)"
                 [videos]="(this.offlineViewController.loadedVideos$ | async)!">
             </app-media-viewer>
         </div>
 
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
 
         <div class="component-container-horizontal">
-            <app-temporal-viewer [streams]="this.offlineViewController.loadedStreams$ | async"></app-temporal-viewer>
+            <app-temporal-viewer
+                (timestampselected)="this.offlineViewController.on_timestamp_selected({ source: 'temporalviewer', timestamp: $event.timestamp } )" 
+                [selectedtimestamp]="(this.offlineViewController.selectedTimestamp$ | async)"
+                [streams]="this.offlineViewController.loadedStreams$ | async">
+            </app-temporal-viewer>
         </div>
         
     </div>

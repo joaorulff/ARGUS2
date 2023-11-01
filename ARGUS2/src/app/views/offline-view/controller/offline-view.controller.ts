@@ -22,8 +22,12 @@ export class OfflineViewController {
         this.store.dispatch( annotationButtonClicked() );
     }
 
-    public on_timestamp_selected( event: { source: string, meta: any} ): void{
-        this.store.dispatch( timestampSelected( {source: event.source, timestamp: event.meta.timestamp } ) );
+    // public on_timestamp_selected( event: { source: string, meta: any } ): void{
+    //     this.store.dispatch( timestampSelected( {source: event.source, timestamp: event.meta.timestamp } ) );
+    // }
+
+    public on_timestamp_selected( event: { source: string, timestamp: number } ): void{
+        this.store.dispatch( timestampSelected( {source: event.source, timestamp: event.timestamp } ) );
     }
 
     private subscribe_to_selectors(): void {

@@ -1,7 +1,6 @@
 export class TimestampParsers {
 
 
-
     public static index_stream_timestamps( streamName: string, stream: any ): any {
 
         switch( streamName ){
@@ -45,10 +44,27 @@ export class TimestampParsers {
                 return TimestampParsers.parse_hand_point_cloud( stream, firstEntry );
             case 'detic:memory':
                 return TimestampParsers.parse_memory_point_cloud( stream, firstEntry );
+            case 'detic:image:misc:for3d':
+                return TimestampParsers.parse_detic_image_misc_output( stream, firstEntry );
             case 'reasoning:check_status':
                 return TimestampParsers.parse_reasoning_output( stream, firstEntry );
         }
 
+    }
+
+    private static parse_detic_image_misc_output( stream: any, firstEntry: number ): any {
+
+        const normalizedStream: any[] = [];
+        stream.forEach( (entry: any) => {
+
+            if( entry.objects ){
+                const normalizedTimestamp: number = entry.timestamp.split('-')[0] - firstEntry;
+                normalizedStream.push({...entry, timestamp: normalizedTimestamp })
+            }
+
+        })
+        
+        return normalizedStream;
     }
 
     private static parse_reasoning_output( stream: any, firstEntry: number ): any {

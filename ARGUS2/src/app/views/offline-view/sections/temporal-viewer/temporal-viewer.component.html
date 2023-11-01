@@ -1,10 +1,19 @@
 <div class="component-container-vertical">
 
-    <div class="component-container-horizontal">
-        <app-model-viewer 
+    <div class="component-container-horizontal-height-param" style="--height: 500px;">
+
+        <app-memory-viewer
+            [selectedtimestamp]="this.selectedTimestamp"
+            [streamname]="'detic:memory'"
+            [streamdata]="this.streams | streamSetToStream: 'detic:memory'"
+            (timestampselected)="this.timestampSelected.emit($event)">
+        </app-memory-viewer>
+
+        <!-- <app-model-viewer 
             [stream]="this.streams | streamSetToStream: 'detic:memory' "
             [streamname]="'detic:memory'">
-        </app-model-viewer>
+        </app-model-viewer> -->
+        
     </div>
 
     <mat-divider></mat-divider>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-temporal-viewer',
@@ -9,5 +9,10 @@ export class TemporalViewerComponent {
 
   // inputs
   @Input('streams') streams: any = {};
+  @Input('selectedtimestamp') selectedTimestamp: { [name: string]: number } = {};
+
+  // events
+  @Output('timestampselected') timestampSelected: EventEmitter<{timestamp: number}> = new EventEmitter<{timestamp: number}>();
+
 
 }

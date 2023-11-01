@@ -16,6 +16,7 @@ import { PointCloudControlsComponent } from './sections/spatial-viewer/sections/
 // pipes
 import { ObjectToKeysPipe } from "src/app/pipes/objectToKeys.pipe";
 import { StreamSetToStreamPipe } from "src/app/pipes/streamSetToStream";
+import { MemoryViewerComponent } from './sections/temporal-viewer/sections/memory-viewer/memory-viewer.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { StreamSetToStreamPipe } from "src/app/pipes/streamSetToStream";
         ModelViewerComponent,
         PointCloudControlsComponent,
         ObjectToKeysPipe,
-        StreamSetToStreamPipe
+        StreamSetToStreamPipe,
+        MemoryViewerComponent
     ],
     imports: [
         MaterialModule,

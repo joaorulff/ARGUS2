@@ -23,20 +23,16 @@ export class ModelViewerComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.modelViewerController.initialize_component( this.containerRef.nativeElement );
+    // this.modelViewerController.initialize_component( this.containerRef.nativeElement );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
 
     if( 'stream' in changes && !changes['stream'].firstChange ){
       if(changes['stream'].currentValue){
-        this.modelViewerController.update( this.streamName, changes['stream'].currentValue );
+        // this.modelViewerController.update( this.streamName, changes['stream'].currentValue );
       }
     }
-
-    // setTimeout( () => {
-    //   this.modelViewerController.update();
-    // }, 1000);
 
   }
 

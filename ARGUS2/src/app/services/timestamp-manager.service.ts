@@ -20,10 +20,15 @@ export class TimestampManagerService {
 
     }
 
-    public get_closest_stream_timestamp( streamName: string, timestamp: number ): number {
+    public get_closest_stream_timestamp( streamName: string, timestamp: number ): number | null {
+
+        if( timestamp === null ){
+            return null;
+        }
 
         const indexTree: BinaryTree = this.timestampsIndex[streamName];
-        const closestTimestamp: number = indexTree.find( timestamp );
+        const closestTimestamp: number | null = indexTree.find( timestamp );
+
         return closestTimestamp;
 
     }
