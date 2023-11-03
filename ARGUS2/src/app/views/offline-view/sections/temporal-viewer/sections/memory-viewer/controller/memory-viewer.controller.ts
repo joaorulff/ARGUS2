@@ -12,7 +12,7 @@ export class MemoryViewerController {
     public indexedLabels: { [labelName: string]: { [id: number] : { value: string | number, timestamp: number }[] } } = {};
     public selectedLabel: string = '';
 
-    constructor( public events: {[name: string]: EventEmitter<any>} ){}
+    constructor( public events: {[name: string]: EventEmitter<any> } ){}
 
     public initialize_component( containerRef: HTMLDivElement ): void {
 
@@ -36,9 +36,7 @@ export class MemoryViewerController {
 
     }
 
-    public update_render( data: { [id: number] : { value: string | number, timestamp: number }[] }, timestamp: number | null ): void {
-        
-        console.log(timestamp);
+    public update_render( data: { [id: number] : { value: string | number, timestamp: number }[] }, timestamp: number | null ): void {        
         this.memoryViewer.update( data, timestamp );
     }
 

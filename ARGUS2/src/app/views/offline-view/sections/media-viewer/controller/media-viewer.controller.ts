@@ -10,9 +10,13 @@ export class MediaViewerController {
     public videoContainer!: HTMLDivElement;
     public maxWidth: number = 0;
     public maxHeight: number = 0;
+    public ratioFactor: number = 0;
+
+    // metadata
+    public boundingBoxes: { [timestamp: number] : { label: string, top: number, left: number, bottom: number, right: number }[] } = {};
 
     // svg
-
+    public svg!: d3.Selection<any, any, any, any>;
 
     constructor(){}
 
@@ -37,7 +41,57 @@ export class MediaViewerController {
         this.select_video( videos['main'] );
     }
 
-    // public update_metadata( metadata: )
+    public update_metadata_timestamp( timestamp: number ): void {
+
+        const bbs: any[] = timestamp ? this.boundingBoxes[timestamp] : [];
+
+        this.svg
+            .selectAll('.boundingbox')
+            .data( bbs )
+            .join(
+                (enter: any) => enter
+                    .append('rect')
+                    .attr('x', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.left*this.currentVideo.videoWidth*this.ratioFactor )
+                    .attr('y', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.top*this.currentVideo.videoHeight*this.ratioFactor )
+                    .attr('class', 'boundingbox')
+                    .attr('width', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.right*this.currentVideo.videoWidth*this.ratioFactor - bb.left*this.currentVideo.videoWidth*this.ratioFactor )
+                    .attr('height', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.bottom*this.currentVideo.videoHeight*this.ratioFactor - bb.top*this.currentVideo.videoHeight*this.ratioFactor  )
+                    .attr('fill', 'transparent')
+                    .attr('stroke', 'red')
+                    .attr('stroke-width', 5),
+                (update: any) => update
+                    .attr('x', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.left*this.currentVideo.videoWidth*this.ratioFactor )
+                    .attr('y', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.top*this.currentVideo.videoHeight*this.ratioFactor )
+                    .attr('width', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.right*this.currentVideo.videoWidth*this.ratioFactor - bb.left*this.currentVideo.videoWidth*this.ratioFactor )
+                    .attr('height', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.bottom*this.currentVideo.videoHeight*this.ratioFactor - bb.top*this.currentVideo.videoHeight*this.ratioFactor  ),
+                (exit: any) => exit.remove()
+            )
+
+        this.svg
+            .selectAll('.label')
+            .data( bbs )
+            .join(
+                (enter: any) => enter
+                    .append('text')
+                    .attr('class', 'label')
+                    .text( (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.label )
+                    .attr('x', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.left*this.currentVideo.videoWidth*this.ratioFactor )
+                    .attr('y', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.top*this.currentVideo.videoHeight*this.ratioFactor )
+                    .style('font-size', `25px`)
+                    .style('fill', 'white'),
+                (update: any) => update
+                    .attr('class', 'label')
+                    .text( (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.label )
+                    .attr('x', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.left*this.currentVideo.videoWidth*this.ratioFactor )
+                    .attr('y', (bb: { label: string, top: number, left: number, bottom: number, right: number } ) => bb.top*this.currentVideo.videoHeight*this.ratioFactor ),
+                (exit: any) => exit.remove()
+            )
+
+    }
+
+    public update_metadata( boundingBoxes: { [timestamp: number] : { label: string, top: number, left: number, bottom: number, right: number }[] }  ): void {
+        this.boundingBoxes = boundingBoxes;
+    }
 
     public select_video( videoPath: string ): void {
         this.selectedVideo = videoPath;
@@ -71,13 +125,14 @@ export class MediaViewerController {
             let containerHeight: number = video.videoHeight;
             let ratioFactor: number = 1.0;
 
-            if( containerWidth > this.maxWidth ){
+            if( containerWidth > this.maxWidth || containerHeight > this.maxHeight ){
 
                 do{ 
                     ratioFactor -= 0.01;
                     containerWidth = video.videoWidth * ratioFactor;
                     containerHeight = video.videoHeight * ratioFactor;
-                }while( containerWidth > this.maxWidth && containerHeight > this.maxHeight );
+
+                }while( containerWidth > this.maxWidth || containerHeight > this.maxHeight );
 
             } else {
 
@@ -86,15 +141,27 @@ export class MediaViewerController {
                     containerWidth = video.videoWidth * ratioFactor;
                     containerHeight = video.videoHeight * ratioFactor;
 
-                } while( containerWidth < this.maxWidth && containerHeight < this.maxHeight );
+                } while( containerWidth <= this.maxWidth && containerHeight <= this.maxHeight );
 
                 containerWidth = video.videoWidth * (ratioFactor - 0.01);
                 containerHeight = video.videoHeight * (ratioFactor - 0.01);
 
+                
             }
 
+            this.ratioFactor = ratioFactor;
+            this.videoContainer.style.position = 'relative';
             this.videoContainer.style.width = `${containerWidth}px`;
             this.videoContainer.style.height = `${containerHeight}px`;
+            this.videoContainer.style.backgroundColor = 'red';
+
+            this.svg = d3.select( this.videoContainer )
+                .append('svg')
+                .attr('top', 0)
+                .attr('left', 0)
+                .attr('width', containerWidth)
+                .attr('height', containerHeight)
+                .style('position', 'absolute');
 
             // attaching video to container
             this.videoContainer.append( video );
@@ -104,8 +171,5 @@ export class MediaViewerController {
         video.src = videoPath;
 
     }
-
-    
-
     
 }

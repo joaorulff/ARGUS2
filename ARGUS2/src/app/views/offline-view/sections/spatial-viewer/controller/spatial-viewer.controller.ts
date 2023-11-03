@@ -22,20 +22,20 @@ export class SpatialViewerController {
 
     public update_highlight( timestamp: {[name: string]: number} ): void {
 
-        for( const stream in timestamp ){
+        // for( const stream in timestamp ){
 
-            if( stream in this.streams ){
+        //     if( stream in this.streams ){
 
-                if( !(stream in this.streams)){
-                    continue;
-                }
+        //         if( !(stream in this.streams)){
+        //             continue;
+        //         }
 
-                const index: number = this.indexedTimestamps[stream][timestamp[stream]];
-                const point: any = this.streams[stream].positions[index];
-                this.egoCloud.highlight_object( 'point', point );
-            }
+        //         const index: number = this.indexedTimestamps[stream][timestamp[stream]];
+        //         const point: any = this.streams[stream].positions[index];
+        //         this.egoCloud.highlight_object( 'point', point );
+        //     }
             
-        }
+        // }
 
     }
 
@@ -72,8 +72,10 @@ export class SpatialViewerController {
                     //     dataset.add_point_cloud( label, memoryPointClouds[label].positions, memoryPointClouds[label].normals, memoryPointClouds[label].colors, memoryPointClouds[label].meta, false, true, false );
                     // });
 
-                } else if( name === 'detic:image:misc:for3d'){
+                } else if( name === 'reasoning:check_status'){
                     
+                } else if( name === 'detic:image:misc:for3d'){
+                        
                 }
                 
                 else { 

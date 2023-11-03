@@ -1,0 +1,25 @@
+:host{
+
+    display: flex;
+    flex: 1;
+}
+
+.header {
+
+    background-color: #673ab7;
+    border-radius: 10px 10px 0px 0px;
+
+    h1 {
+        color: white;
+    }
+}
+
+
+.body{
+
+    border: solid;
+    border-width: 5px;
+    border-color: #673ab7;
+    border-radius: 0px 0px 10px 10px;
+
+}

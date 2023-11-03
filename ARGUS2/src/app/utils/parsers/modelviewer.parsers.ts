@@ -9,27 +9,13 @@ export class ModelViewerParsers {
         switch(streamName){
             case 'detic:memory':
                 return ModelViewerParsers.parse_memory_stream( stream );
+            case 'reasoning:check_status':
+                return ModelViewerParsers.parse_reasoning_stream( stream );
             // case 'detic:image:misc:for3d':
             //     return ModelViewerParsers.parse_detic_image_misc( stream );
         }
 
     }
-
-    // private static parse_detic_image_misc( stream ): any {
-
-    //     const objectNames: string[] = stream.reduce( (labels, current) => {
-    //         const currentObjects: Set<string> = current.objects.map( (object: any) => object.label);            
-    //         currentObjects .forEach( (object: string) => {
-    //             labels.add( object );
-    //         })
-    //         return labels;
-    //     }, new Set());
-
-    //     stream.forEach()
-
-
-    //     return []
-    // }
 
     private static parse_memory_stream( stream: any ): { [labelName: string]: { [id: number] : { value: string | number, timestamp: number }[] } } {
 
@@ -52,6 +38,27 @@ export class ModelViewerParsers {
         });
 
         return indexedIDs;        
+
+    }
+
+    private static parse_reasoning_stream( stream: any ): any {
+
+        const tasks: { [task: string ]: { step: number, timestamp: number, error: boolean }[] } = {};
+        stream.forEach( (row: any) => {
+
+            const currentTimestamp: number = row.timestamp; // parseInt( .split('-')[0] );
+            row.active_tasks.forEach( (activeTask: any) => {
+
+                if( ! (activeTask.task_id in tasks) ){
+                    tasks[activeTask.task_id] = [];
+                }
+
+                tasks[activeTask.task_id].push( {timestamp: currentTimestamp, step: activeTask.step_id, error: activeTask.error_status });
+
+            })
+        });
+
+        return tasks;
 
     }
 

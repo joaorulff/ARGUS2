@@ -17,6 +17,9 @@ import { PointCloudControlsComponent } from './sections/spatial-viewer/sections/
 import { ObjectToKeysPipe } from "src/app/pipes/objectToKeys.pipe";
 import { StreamSetToStreamPipe } from "src/app/pipes/streamSetToStream";
 import { MemoryViewerComponent } from './sections/temporal-viewer/sections/memory-viewer/memory-viewer.component';
+import { TemplatesModule } from "src/app/templates/templates.module";
+import { ReasoningViewerComponent } from './sections/temporal-viewer/sections/reasoning-viewer/reasoning-viewer.component';
+import { PerceptionViewerComponent } from './sections/temporal-viewer/sections/perception-viewer/perception-viewer.component';
 
 @NgModule({
     declarations: [
@@ -24,17 +27,20 @@ import { MemoryViewerComponent } from './sections/temporal-viewer/sections/memor
         SpatialViewerComponent,
         TemporalViewerComponent,
         MediaViewerComponent,
+        MemoryViewerComponent,
         QueryBarComponent,
         ModelViewerComponent,
         PointCloudControlsComponent,
         ObjectToKeysPipe,
         StreamSetToStreamPipe,
-        MemoryViewerComponent
+        ReasoningViewerComponent,
+        PerceptionViewerComponent,        
     ],
     imports: [
         MaterialModule,
         HttpClientModule,
-        CommonModule
+        CommonModule,
+        TemplatesModule
     ],
     exports: [
         OfflineViewComponent

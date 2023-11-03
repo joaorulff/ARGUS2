@@ -27,13 +27,14 @@
 
     </div>
 
-    <mat-divider [vertical]="true"></mat-divider>
+    <!-- <mat-divider [vertical]="true"></mat-divider> -->
 
     <div class="component-container-vertical">
-        
+
+
         <div class="component-container-horizontal-height-param" style="--height: 30%;">
             <app-media-viewer 
-                
+                [streams]="(this.offlineViewController.loadedStreams$ | async)"
                 [selectedtimestamp]="(this.offlineViewController.selectedTimestamp$ | async)"
                 [videos]="(this.offlineViewController.loadedVideos$ | async)!">
             </app-media-viewer>

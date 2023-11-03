@@ -34,6 +34,8 @@ export const offlineViewReducer = createReducer(
 
         // indexing streams
         const currentState: IOfflineViewState = { ...state, streams: action.streams };
+
+        console.log(currentState);
         return currentState;
     }),
 

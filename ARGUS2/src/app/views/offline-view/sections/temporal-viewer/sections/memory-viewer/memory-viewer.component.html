@@ -1,39 +1,28 @@
 <div class="component-container-vertical">
 
-    <div class="component-container-horizontal-height-param" style="--height: 70px;">
+    <div class="component-container-horizontal-height-param" style="--height: 30px;">
 
-        <div class="component-container-horizontal">
+        <div class="component-container-horizontal" style="flex-direction: row-reverse;">
 
-            <div class="component-container-horizontal">
+            <div class="component-container-horizontal-width-param center-element" style="--width: 20px;">
 
-                <div class="component-container-horizontal center-element">
-                    <h1>{{ this.streamName }}</h1>
-                </div>
-                
-                <div class="component-container-horizontal center-element">
-                    <mat-form-field>
-                        <mat-label>Label</mat-label>
-                        <mat-select (selectionChange)="this.memoryViewerController.change_label($event.value)" [disabled]="this.memoryViewerController.labels.length === 0">
-                            <mat-option *ngFor="let label of this.memoryViewerController.labels" [value]="label">
-                                {{label}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+                <button mat-icon-button [matMenuTriggerFor]="labelMenu" [disabled]="this.memoryViewerController.labels.length === 0">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <mat-menu #labelMenu="matMenu">
+                    <button mat-menu-item *ngFor="let label of this.memoryViewerController.labels" (click)="this.memoryViewerController.change_label(label)">
+                        <span>{{ label }}</span>
+                    </button>
+                </mat-menu>
+
+            </div>
+
+            <div class="component-container-horizontal-width-param text-overflow" style="--width: 150px; flex-direction: row-reverse;">
+                <h1>{{ this.memoryViewerController.selectedLabel }}</h1>
             </div>
 
         </div>
-
-
-        <!-- <mat-form-field>
-            <mat-label>Cars</mat-label>
-            <select matNativeControl required>
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option>
-            </select>
-          </mat-form-field> -->
 
     </div>
 

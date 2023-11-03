@@ -40,8 +40,8 @@ export class TimestampParsers {
                 return TimestampParsers.parse_world_point_cloud( stream, firstEntry );
             case 'eye':
                 return TimestampParsers.parse_eye_point_cloud( stream, firstEntry );
-            case 'hand':
-                return TimestampParsers.parse_hand_point_cloud( stream, firstEntry );
+            // case 'hand':
+            //     return TimestampParsers.parse_hand_point_cloud( stream, firstEntry );
             case 'detic:memory':
                 return TimestampParsers.parse_memory_point_cloud( stream, firstEntry );
             case 'detic:image:misc:for3d':
@@ -69,30 +69,15 @@ export class TimestampParsers {
 
     private static parse_reasoning_output( stream: any, firstEntry: number ): any {
 
-        let recipeIDs: number[] = stream.map( (measurement: any) => measurement.values[0].session_id );
-        recipeIDs = Array.from( new Set( recipeIDs ) );
+        const normalizedStream: any[] = [];
+        stream.forEach( (entry: any) => {
 
-        const indexedRecipeIDs: { [recipeIDs: string]: any[] } = {};
-        recipeIDs.forEach( (id: number) => {
-            indexedRecipeIDs[id] = [];
-        });
+            const normalizedTimestamp: number = entry.timestamp.split('-')[0] - firstEntry;
+            normalizedStream.push({...entry, timestamp: normalizedTimestamp})
 
+        })
 
-        // stream.forEach( (entry: any) => {
-
-        //     const currentTimestamp: number = parseInt(entry.timestamp.split('-')[0]) - firstEntry;
-        //     console.log(currentTimestamp);
-            
-        // })
-        // generating arrays
-
-
-        // const normalizedStream: { [recipeID: string]: } = [];
-        // stream.forEach( (measurement: any) => {
-        //     console.log(measurement);
-        // });
-
-        return {}
+        return normalizedStream;
     }
 
     private static parse_memory_point_cloud( stream: any, firstEntry: number ): any {
@@ -124,8 +109,8 @@ export class TimestampParsers {
         return normalizedStream;
     }
 
-    private static parse_hand_point_cloud( stream: any, firstEntry: number ): number[] {
-        return []
-    }
+    // private static parse_hand_point_cloud( stream: any, firstEntry: number ): number[] {
+    //     return []
+    // }
 
 }

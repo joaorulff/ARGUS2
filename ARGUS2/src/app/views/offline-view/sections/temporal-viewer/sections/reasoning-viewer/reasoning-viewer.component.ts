@@ -1,21 +1,26 @@
+// core
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MemoryViewerController } from './controller/memory-viewer.controller';
+
+// controller
+import { ReasoningViewerController } from './controller/reasoning-viewer.controller';
 
 @Component({
-  selector: 'app-memory-viewer',
-  templateUrl: './memory-viewer.component.html',
-  styleUrls: ['./memory-viewer.component.scss']
+  selector: 'app-reasoning-viewer',
+  templateUrl: './reasoning-viewer.component.html',
+  styleUrls: ['./reasoning-viewer.component.scss']
 })
-export class MemoryViewerComponent implements AfterViewInit, OnChanges, OnInit {
+export class ReasoningViewerComponent implements AfterViewInit, OnChanges, OnInit {
+
+  // consts
+  public streamName: string = 'reasoning:check_status';
 
   // controller
-  public memoryViewerController!: MemoryViewerController;
+  public reasoningViewerController!: ReasoningViewerController;
 
   // DOM refs
   @ViewChild('containerref') containerRef!: ElementRef;
 
   // inputs
-  @Input('streamname') streamName: string = '';
   @Input('streamdata') streamData: any[] = [];
   @Input('selectedtimestamp') selectedTimestamp: { [name: string]: number } = {};
 
@@ -29,30 +34,29 @@ export class MemoryViewerComponent implements AfterViewInit, OnChanges, OnInit {
     const events: {[name: string]: EventEmitter<any>} = {
       'timestampselected': this.timestampSelected
     }
+    
+    this.reasoningViewerController = new ReasoningViewerController( events );
 
-    this.memoryViewerController = new MemoryViewerController( events );
   }
 
   ngAfterViewInit(): void {
-    this.memoryViewerController.initialize_component( this.containerRef.nativeElement );
+    this.reasoningViewerController.initialize_component( this.containerRef.nativeElement );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
 
     if( 'streamData' in changes && !changes['streamData'].firstChange ){
       if(changes['streamData'].currentValue){
-        this.memoryViewerController.update_dataset( this.streamName, changes['streamData'].currentValue );
+        this.reasoningViewerController.update_dataset( changes['streamData'].currentValue );
       }
     }
 
     if( 'selectedTimestamp' in changes && !changes['selectedTimestamp'].firstChange ){
       if(changes['selectedTimestamp'].currentValue){
-        this.memoryViewerController.highlight_timestamp( changes['selectedTimestamp'].currentValue[this.streamName] );
+        this.reasoningViewerController.highlight_timestamp( changes['selectedTimestamp'].currentValue[this.streamName] );
       }
     }
 
   }
-
-
 
 }

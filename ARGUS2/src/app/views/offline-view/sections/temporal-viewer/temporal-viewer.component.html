@@ -1,35 +1,42 @@
 <div class="component-container-vertical">
 
-    <div class="component-container-horizontal-height-param" style="--height: 500px;">
+    <div class="component-container-horizontal">
 
-        <app-memory-viewer
-            [selectedtimestamp]="this.selectedTimestamp"
-            [streamname]="'detic:memory'"
-            [streamdata]="this.streams | streamSetToStream: 'detic:memory'"
-            (timestampselected)="this.timestampSelected.emit($event)">
-        </app-memory-viewer>
+        <app-component-container-template [title]="'Memory'">
 
-        <!-- <app-model-viewer 
-            [stream]="this.streams | streamSetToStream: 'detic:memory' "
-            [streamname]="'detic:memory'">
-        </app-model-viewer> -->
+            <app-memory-viewer
+                [selectedtimestamp]="this.selectedTimestamp"
+                [streamname]="'detic:memory'"
+                [streamdata]="this.streams | streamSetToStream: 'detic:memory'"
+                (timestampselected)="this.timestampSelected.emit($event)">
+            </app-memory-viewer>
+
+        </app-component-container-template>
         
     </div>
 
-    <mat-divider></mat-divider>
-
     <div class="component-container-horizontal">
+
+        <app-component-container-template [title]="'Reasoning'">
+            <app-reasoning-viewer 
+                (timestampselected)="this.timestampSelected.emit($event)"
+                [selectedtimestamp]="this.selectedTimestamp"
+                [streamdata]="this.streams | streamSetToStream: 'reasoning:check_status'">
+            </app-reasoning-viewer>
+        </app-component-container-template>
 
     </div>
 
-    <!-- <div class="component-container-horizontal">
-        <app-model-viewer></app-model-viewer>
-    </div>
-
-    <mat-divider></mat-divider>
-
     <div class="component-container-horizontal">
-        <app-model-viewer></app-model-viewer>
-    </div> -->
+
+        <app-component-container-template [title]="'Perception'">
+            <app-perception-viewer
+                (timestampselected)="this.timestampSelected.emit($event)"
+                [selectedtimestamp]="this.selectedTimestamp"
+                [streamdata]="this.streams | streamSetToStream: 'detic:image:misc:for3d'">
+            </app-perception-viewer>
+        </app-component-container-template>
+    
+    </div>
 
 </div>
