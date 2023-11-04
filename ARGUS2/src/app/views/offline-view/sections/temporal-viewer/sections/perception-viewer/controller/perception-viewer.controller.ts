@@ -1,5 +1,6 @@
 import { EventEmitter } from "@angular/core";
 import { ModelViewer } from "modelviewer";
+import { ModelViewerParsers } from "src/app/utils/parsers/modelviewer.parsers";
 
 export class PerceptionViewerController {
 
@@ -18,21 +19,12 @@ export class PerceptionViewerController {
 
         this.perceptionViewer = new ModelViewer( containerRef );
 
-        const data =  
-        { name: 'actions', 
-            labels: [
-                { name: 'tortilla', values: Array.from({length: 200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'knife', values: Array.from({length: 200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random()  },
-                { name: 'plate', values: Array.from({length: 200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'paper towel', values: Array.from({length: 1200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'board', values: Array.from({length: 1200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'toothpicks', values: Array.from({length: 1200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'dental floss', values: Array.from({length: 1200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() },
-                { name: 'jam', values: Array.from({length: 1200}, () => (Math.random())), confidence: Math.random(), coverage: Math.random() }
-        ]}
+    }
 
-        this.perceptionViewer.update( data, null, [0, 180000] );
+    public update_dataset( streamName: string, streamData: any ): void {
 
+        const chartData: any = ModelViewerParsers.parse_stream_stream( streamName, streamData );
+        this.perceptionViewer.update( { name: 'test', labels: chartData }, null, [1, 10000] );
 
     }
 

@@ -39,7 +39,6 @@ export class MediaViewerComponent implements AfterViewInit, OnChanges {
 
       this.mediaViewerController.update_metadata_timestamp( changes['selectedTimestamp'].currentValue[this.boundingBoxStream] );
 
-
     }
     
     if( 'videos' in changes && Object.keys(changes['videos'].currentValue).length && !changes['videos'].firstChange ){

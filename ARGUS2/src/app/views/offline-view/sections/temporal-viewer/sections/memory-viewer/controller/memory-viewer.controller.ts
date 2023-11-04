@@ -49,10 +49,8 @@ export class MemoryViewerController {
     }
 
     public highlight_timestamp( timestamp: number | null ){
-
         const currentLabelData: { [id: number] : { value: string | number, timestamp: number }[] } = this.indexedLabels[this.selectedLabel];
         this.update_render( currentLabelData, timestamp );
-
     }
 
     public cell_hovered( timestamp: number ): void {

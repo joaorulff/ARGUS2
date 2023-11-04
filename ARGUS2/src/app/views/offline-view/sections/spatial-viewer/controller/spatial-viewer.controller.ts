@@ -17,25 +17,27 @@ export class SpatialViewerController {
     // indexed timestamps
     public indexedTimestamps: { [ name: string ]: { [timestamp: number]: number } } = {};
 
-    constructor( public events: {[name: string]: EventEmitter<any>} ){}
+    // TODO: remove it from here
+    public directions: number[][] = [];
 
+    constructor( public events: {[name: string]: EventEmitter<any>} ){}
 
     public update_highlight( timestamp: {[name: string]: number} ): void {
 
-        // for( const stream in timestamp ){
+        // clearing
+        this.egoCloud.clear_highlights();
 
-        //     if( stream in this.streams ){
+        for( const streamName in timestamp ){
+            if( streamName in this.indexedTimestamps && timestamp[streamName] ){
 
-        //         if( !(stream in this.streams)){
-        //             continue;
-        //         }
-
-        //         const index: number = this.indexedTimestamps[stream][timestamp[stream]];
-        //         const point: any = this.streams[stream].positions[index];
-        //         this.egoCloud.highlight_object( 'point', point );
-        //     }
+                const index: number = this.indexedTimestamps[streamName][timestamp[streamName]] ;
+                const point: any = this.streams[streamName].positions[index];                
+                this.egoCloud.highlight( 'point', point );
+                this.egoCloud.highlight('line', {origin: point, destination: this.directions[index]} )
             
-        // }
+            
+            }
+        }
 
     }
 
@@ -60,11 +62,10 @@ export class SpatialViewerController {
                 // TODO: make this interface uniform
                 if( name === 'voxelized-pointcloud' ){
                     availableStreams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
-                    dataset.add_point_cloud( name, availableStreams[name].positions, availableStreams[name].colors, [], [], false, false, true  );
-
+                    dataset.add_point_cloud( name, availableStreams[name].positions, [], availableStreams[name].colors, [], false, true  );
                 } 
                 
-                else if( name === 'detic:memory' ){
+                else if( name === 'detic:memory' || name === 'reasoning:check_status' || name === 'detic:image:misc:for3d' ){
 
                     // const memoryPointClouds: { [name: string]: { positions: number[][], colors: number[][], normals: number[][], meta: any[] } } = PointCloudParsers.parse_stream_into_pointcloud(name, streams[name]);
                     // Object.keys( memoryPointClouds ).forEach( ( label: string ) => {
@@ -72,18 +73,24 @@ export class SpatialViewerController {
                     //     dataset.add_point_cloud( label, memoryPointClouds[label].positions, memoryPointClouds[label].normals, memoryPointClouds[label].colors, memoryPointClouds[label].meta, false, true, false );
                     // });
 
-                } else if( name === 'reasoning:check_status'){
-                    
-                } else if( name === 'detic:image:misc:for3d'){
-                        
-                }
-                
-                else { 
+                } else { 
+
                     availableStreams[name] = PointCloudParsers.parse_stream_into_pointcloud( name, streams[name] );
-                    dataset.add_point_cloud( name, availableStreams[name].positions, availableStreams[name].colors, [], availableStreams[name].meta, false, true, false );
+                    dataset.add_point_cloud( name, availableStreams[name].positions, [], availableStreams[name].colors, availableStreams[name].meta, true, false );
                     
                     // Indexing timestamps. This is useful to translate timestamps to data indices.
                     this.indexedTimestamps[name] = TimestampParsers.index_stream_timestamps( name, availableStreams[name].meta );
+
+                    if( name === 'eye'){
+
+                        const directions = streams[name].map( entry => {
+                            return [ entry.GazeDirection.x + entry.GazeOrigin.x, entry.GazeDirection.y + entry.GazeOrigin.y, (entry.GazeDirection.z*-1) + (entry.GazeOrigin.z*-1) ]
+                        }) ;
+
+                        this.directions = directions;
+
+                    }
+
                 }
 
             }
@@ -103,10 +110,10 @@ export class SpatialViewerController {
 
         this.egoCloud = new SceneViewer( containerRef, {
             'onHover': ( index: number, name: string, position: number[], meta: any ) => {
-
-                // console.log(position);
-                // this.events['timestampselected'].emit( {source: 'spatial-viewer', meta: meta} );
-            
+                if( index !== -1 ){
+                    this.events['timestampselected'].emit( {timestamp: meta.timestamp} );
+                }
+                
             }  
         } );
     }

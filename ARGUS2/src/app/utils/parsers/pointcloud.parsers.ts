@@ -33,8 +33,6 @@ export class PointCloudParsers {
 
     private static parse_hand_point_cloud( stream: any ): any {
 
-
-
         return { positions: [], colors: [], normals: [], meta: [] };
     }
 

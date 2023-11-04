@@ -23,6 +23,7 @@ export class SessionPickerDialogController {
     }
 
     public on_session_selected( session: any ): void {
+
         this.store.dispatch( sessionSelected({ session }) );
 
         // closing dialog

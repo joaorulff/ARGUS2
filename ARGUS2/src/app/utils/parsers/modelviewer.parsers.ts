@@ -11,8 +11,8 @@ export class ModelViewerParsers {
                 return ModelViewerParsers.parse_memory_stream( stream );
             case 'reasoning:check_status':
                 return ModelViewerParsers.parse_reasoning_stream( stream );
-            // case 'detic:image:misc:for3d':
-            //     return ModelViewerParsers.parse_detic_image_misc( stream );
+            case 'detic:image:misc:for3d':
+                return ModelViewerParsers.parse_perception_stream( stream );
         }
 
     }
@@ -65,35 +65,41 @@ export class ModelViewerParsers {
     // parseing detic:memory stream
     private static parse_perception_stream( stream: any ): any {
 
-        // getting all object names
-        const entries: any = stream.map( (entry: any) => entry.values ).flat();
-        
-        const labels: { [label: string]: any } = {};
-        entries.forEach( (entry: any) => {
-            labels[entry.label] = { name: entry.label, values: [], confidence: 0.5, coverage: 0.5 };
+        const indexedLabels: { [labels: string]: number[] } = {};
+        stream.forEach( (entry: any, index: number) => {
+            entry.objects.forEach( ( object: any ) => {
+                indexedLabels[object.label] = [];
+            })
         });
 
-        stream.forEach( (entry: any) => {
-
-            Object.keys(labels).forEach( (label: string) => {
-
-                let flag: boolean = false;
-                for( let i = 0; i < entry.values.length; i++){
-                    if( entry.values[i].label === label ){
-                        labels[label].values.push(1);
-                        flag = true;
-                        break;
-                    }
+        stream.forEach( (entry: any, index: number) => {
+            for(let i = 0; i < entry.objects.length; i++ ){
+                if( indexedLabels[entry.objects[i].label].length <= index ){
+                    indexedLabels[entry.objects[i].label].push( entry.objects[i].confidence );
                 }
+            }
 
-                if(!flag){
-                    labels[label].values.push(0);
+            Object.keys( indexedLabels ).forEach( (label: string) => {
+                if( indexedLabels[label].length <= index ){
+                    indexedLabels[label].push( 0 );
                 }
-
             })
-        })
 
-        return Object.values( labels );
+        });
+
+        const parsedData: any[] = [];
+        Object.keys( indexedLabels ).forEach( (label: string) => {
+            const currentObj: any = {
+                name: label,
+                values: indexedLabels[label],
+                confidence: 0.5,
+                coverage: 0.5
+            }
+
+            parsedData.push( currentObj );
+        })
+    
+        return parsedData;
     }
 
 

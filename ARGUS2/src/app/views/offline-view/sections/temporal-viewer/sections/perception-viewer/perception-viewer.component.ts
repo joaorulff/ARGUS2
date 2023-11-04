@@ -40,6 +40,14 @@ export class PerceptionViewerComponent implements AfterViewInit, OnChanges, OnIn
     this.perceptionViewerController.initialize_component( this.containerRef.nativeElement );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if( 'streamData' in changes && !changes['streamData'].firstChange ){
+      if( changes['streamData'].currentValue ){
+        this.perceptionViewerController.update_dataset( this.streamName, changes['streamData'].currentValue );
+      }
+    }
+
+  }
 
 }

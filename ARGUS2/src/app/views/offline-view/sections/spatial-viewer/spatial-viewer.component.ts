@@ -23,7 +23,7 @@ export class SpatialViewerComponent implements AfterViewInit, OnChanges {
   @Input('selectedtimestamp') selectedTimestamp: { [name: string]: number } = {};
 
   // events
-  @Output('timestampselected') timestampSelected: EventEmitter<{source: string, meta: any}> = new EventEmitter<{source: string, meta: any}>();
+  @Output('timestampselected') timestampSelected: EventEmitter<{timestamp: number}> = new EventEmitter<{timestamp: number}>();
 
   constructor( public httpClient: HttpClient ){    
 
