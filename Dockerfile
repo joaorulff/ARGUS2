@@ -1,7 +1,7 @@
 FROM node:16-slim AS build
 
 WORKDIR /src
-COPY ./dist/urban-panoptes/* ./
+COPY ./ARGUS2/dist/urban-panoptes/* ./
 
 # production env
 FROM nginx:stable-alpine
