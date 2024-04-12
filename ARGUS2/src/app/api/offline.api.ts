@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { environment } from "src/environments/environments";
@@ -17,6 +17,11 @@ export class OfflineAPI {
 
         return this.httpClient.get<any>( url, {headers: headers}  ).pipe(
             map( (response: any ) => {
+
+                response.forEach(( r: any) => {
+                    r['first-entry'] = '1699371154056-0';
+                })
+
                 return response;
             })
         );
@@ -42,8 +47,5 @@ export class OfflineAPI {
         return url;
 
     }
-
-
-
 
 }
